@@ -1,6 +1,9 @@
 # Local trial and rollback
 
-This procedure is a plan, not a record that installation has happened.
+This is the repeatable procedure. An approved development trial was installed on
+October 4, 2026; results are recorded in `REVIEW-EVIDENCE.md`. The private local
+receipt in `build/evidence/installed-trial.json` contains exact hashes and prior
+extension registration. It is not a public release or proof of all steps below.
 
 ## Before changing the installed setup
 
@@ -32,10 +35,15 @@ This procedure is a plan, not a record that installation has happened.
 
 ## Rollback
 
-- Disable the new preview extension, restoring its recorded previous state.
+- Restore the extension's recorded previous user election. In the October 4 trial
+  this was `default`, not an explicit enabled or disabled election.
 - Restore the prior app at the agreed install path if there was one; otherwise
   remove only the exact newly installed app after approval.
 - Preserve any changed preferences and diagnostic evidence before removal.
+- The trial unregisters the duplicate build-directory app so Finder uses the
+  installed copy. To return to development registration, register that exact
+  build app again; a later Xcode build may also do so automatically. Do not reset
+  the whole Launch Services database or Quick Look caches.
 - Confirm normal system previews work again. Do not reset all Launch Services or
   Quick Look caches, disable Apple/Xcode components, or uninstall unrelated preview apps.
 - The old 4.1.0 source, installed generator, preference domain and Homebrew receipt

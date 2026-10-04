@@ -82,12 +82,23 @@ observed was 2.1.32 on September 16, 2026. It is a useful benchmark and a possib
 collaboration destination if maintaining another implementation proves unnecessary.
 No maintainer was contacted.
 
+### Preview usability direction
+
+Mason confirmed horizontal scrolling during the installed trial. His preference
+for the next polish pass is automatic wrapping to the preview width, without a
+setting for users to configure. Preserve original source line numbers, indentation
+and copied text. The current build still scrolls horizontally; a wrapping change
+must align the gutter with logical source lines when a line spans multiple rows.
+Also replace exposed grammar IDs with friendly language names, especially TOML's
+current `ini` label.
+
 ## Verification and release gates
 
 The working host is macOS 27.0.1, build 26A434, Apple Silicon, Xcode 27.0 (27A266a).
 A normal sandboxed identity check showed zero identities; a direct authorized check
-confirmed an existing Developer ID Application identity. No certificate was created,
-exported, or used to sign this development build.
+confirmed an existing Developer ID Application identity. With Mason's explicit
+approval it signed the local trial app and extension. No certificate was created
+or exported. Diagnostic builds have no secure timestamp and are not notarized.
 
 Evidence currently established:
 
@@ -98,11 +109,14 @@ Evidence currently established:
   missing-parser fallback, and a timed language corpus.
 - Universal arm64/x86_64 app and extension build successfully; embedded resources
   and BSD/GPL notices are present. `codesign --verify --deep --strict` passes for
-  the ad hoc development bundle. Xcode disables hardened runtime for this ad hoc
-  build, so this does not validate the eventual hardened release.
+  both the ad hoc and authorized Developer ID diagnostic builds. Both signed
+  bundles have hardened runtime enabled. This is not notarization or Gatekeeper
+  acceptance of a downloaded release.
 - Xcode automatically registered the app/UTI declarations from the build directory
-  with Launch Services. No manual extension activation or Applications installation
-  is implied by that registration.
+  with Launch Services. Separately, Mason approved installing the verified signed
+  app in his user Applications directory and enabling its preview extension.
+  Full bundle hashes and strict signatures matched after installation; the old
+  Homebrew generator remains unchanged. See `REVIEW-EVIDENCE.md` for trial results.
 - Real Launch Services metadata confirms `.ts` is a movie and `.tsx` uses
   `com.microsoft.typescript`. The extension does not claim the movie UTI.
 - Opus 5.5 independently reviewed an explicit plan and implementation packet with
@@ -110,8 +124,9 @@ Evidence currently established:
 
 Required before stable release:
 
-1. Prove the extension itself is invoked by Finder on Golden Gate, with screenshots
-   and registration evidence; companion rendering alone does not count.
+1. Complete Finder qualification across file types and lifecycle cases. Initial
+   Golden Gate invocation from the installed signed app is proved by a source
+   preview screenshot and the running extension's installed executable path.
 2. Add a reliable highlighting deadline / process isolation, cancellation, and
    pathological-input testing. Input size caps alone are not a time bound.
 3. Qualify language/file-type behavior with other editors installed, including

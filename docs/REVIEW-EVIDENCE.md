@@ -38,7 +38,7 @@ code-signing flags. No claim that those final configuration edits received an
 additional independent review is made.
 
 Outstanding review items remain in `REVIVAL-REVIEW.md`: highlighting wall-clock
-bound, real Finder-hosted hardened-runtime behavior, dataless/cloud files, older OS
+bound, broader Finder-hosted behavior, dataless/cloud files, older OS
 and Intel runtime qualification, encoding policy, UX polish and feature parity.
 
 ## Parent verification
@@ -65,7 +65,7 @@ and Intel runtime qualification, encoding policy, UX polish and feature parity.
   interchangeable.
 - Xcode automatically registered the build's app/UTIs with Launch Services. That
   makes the extension discoverable and is a real machine-state side effect.
-  No manual extension activation or Applications installation is claimed.
+  The separately approved installed trial below records installation and activation.
 - Hosted CI, signed distribution, notarization and Gatekeeper acceptance have not
   run. A manual-only CI template is provided in `docs/ci/verify-modern.yml`; no live workflow is configured. GitHub rejected the first push because the existing OAuth credential lacks workflow scope, so no credential permissions were expanded.
 
@@ -112,12 +112,56 @@ A second synthetic fixture showed eight numbered lines, accented text, Japanese,
 emoji, and literal script/image/entity markup without interpreting it as HTML.
 Horizontal-scroll attempts over the scroll area and long line produced no visible
 movement; reaching the long line's end remains unverified and requires follow-up.
-This is an outstanding UI check, not a passing horizontal-scroll result.
+This was not a passing automated horizontal-scroll result. During the installed
+trial Mason subsequently confirmed that horizontal scrolling works (`user_report`).
 
 Screenshots and a signed bundle hash/entitlement manifest are retained under ignored
 `build/evidence/`; signed binaries and personal receipts are not published.
 
-Read-only PlugInKit inspection found the new preview extension registered from the
-build directory. Finder invocation remains unverified. No manual extension
-activation, Applications installation, notarization, public binary release or
-installed-generator replacement has occurred.
+## Approved installed trial
+
+Mason subsequently approved installing this exact verified build in his user
+Applications directory and enabling only QLColorCode Preview. The destination was
+empty. The copied bundle matched the signed-build manifest byte for byte and
+passed strict signature verification. The complete legacy generator bundle's
+hashes were recorded before installation and remained unchanged afterward;
+Homebrew still reports the old 4.1.0 installation.
+
+The previous extension election was `default`; the trial sets it to `use`.
+An initial Finder preview reused a running copy from the build directory. After
+closing that preview, the parent unregistered only the development app and stopped
+that exact stale extension process. This left a single enabled registration from
+the installed app. No global cache reset or unrelated provider change occurred.
+
+Finder then displayed `SourceDocument.swift` with QLColorCode branding, 135 lines,
+syntax colors and a gutter. The parent inspected the screenshot and independently
+verified the running extension executable came from the installed app. This proves
+Finder invocation on this host, not compatibility with every file type or OS.
+The private local receipt in `build/evidence/installed-trial.json` records exact
+hashes, original registration, selected installed path, and process provenance.
+
+The Finder fixture matrix on this host produced these observed results:
+
+| Input | Observed Finder result |
+| --- | --- |
+| Swift, Python, JavaScript, TSX, Rust, Go, YAML, C header | QLColorCode header, syntax colors, expected line count and gutter |
+| TOML | Colored source and correct line count; header exposes the grammar name `ini`, a polish issue |
+| BOM-marked UTF-16 Python | Two highlighted lines, preserving accented text, Japanese and emoji |
+| Extensionless Makefile | Highlighted three-line preview via `public.make-source` |
+| 68 KB Python fixture | 1,501-line plain-text preview with highlighting-unavailable notice |
+| Oversized Python fixture | 5,626-line bounded preview with explicit beginning-of-file and highlighting notices |
+| Binary bytes in a `.py` file | Provider error in scoped logs; Finder metadata/thumbnail fallback; subsequent previews still work |
+| Unknown `.qlunknown` file | Finder metadata fallback |
+| TypeScript `.ts` | Finder metadata fallback; actual content type is still `public.mpeg-2-transport-stream`; compatibility gap remains |
+
+Source selection excluded gutter numbers and vertical scrolling advanced to later
+lines. The parent independently exercised the large/truncated/binary/unknown/TS
+and Makefile cases and inspected representative delegated screenshots. Horizontal
+scrolling is confirmed by Mason, not by the inconclusive automated gestures.
+The local `finder-language-results.json` and `finder-edge-results.json` receipts
+retain per-file observations and screenshots. Light appearance, clipboard-copy
+roundtrip, iCloud/dataless files, cold-start timing, older macOS and Intel execution
+remain untested. These checks do not establish a hard highlighting time bound.
+
+No notarization, public binary release, Homebrew cask change, or legacy installed
+generator replacement has occurred.

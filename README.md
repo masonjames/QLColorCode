@@ -7,8 +7,9 @@ and [Anthony Gelibert's continuation](https://github.com/anthonygelibert/QLColor
 including their Git history and contributor credits.
 
 **Status: development prototype, not a published replacement for 4.1.0.** The modern
-app targets macOS Sequoia 15 and newer. It has been built on Golden Gate 27.0.1;
-older OS runtime compatibility and Finder registration still need qualification.
+app targets macOS Sequoia 15 and newer. A signed development build has been
+installed and invoked successfully by Finder on Golden Gate 27.0.1. Older OS
+runtime compatibility and the full file-type/interaction matrix still need qualification.
 The existing Homebrew `qlcolorcode` cask installs the obsolete generator and was
 disabled on September 27, 2026. It does not install this fork.
 
@@ -66,8 +67,8 @@ new development belongs in `modern/`.
 - On the development Mac, `.ts` resolves to `public.mpeg-2-transport-stream`.
   TypeScript can be previewed in the companion app, but `.ts` Finder support is
   unresolved. The extension deliberately does not claim the movie type.
-- Extensionless Makefiles and shell dotfiles can be previewed in the companion;
-  Finder routing for extensionless files is not claimed.
+- Extensionless Makefiles rendered in the installed Finder trial on the development
+  Mac. Other extensionless files and shell-dotfile routing remain unqualified.
 - `.tsx`, Rust, Go, YAML, TOML, and other mappings must be tested with different
   editors installed. Imported file-type declarations do not guarantee precedence.
 - Binary plist conversion, compiled-script decompilation, configurable fonts/themes,

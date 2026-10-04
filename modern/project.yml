@@ -1,0 +1,167 @@
+name: QLColorCodeModern
+options:
+  deploymentTarget:
+    macOS: "15.0"
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "15.0"
+    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: "5.0.0"
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: "-"
+    ENABLE_HARDENED_RUNTIME: YES
+    GENERATE_INFOPLIST_FILE: NO
+    SWIFT_STRICT_CONCURRENCY: complete
+    ONLY_ACTIVE_ARCH: NO
+    ARCHS: "arm64 x86_64"
+targets:
+  QLColorCode:
+    type: application
+    platform: macOS
+    sources:
+      - App
+      - Core
+      - path: Resources
+        buildPhase: resources
+      - path: ../COPYING
+        buildPhase: resources
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: QLColorCode
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        LSMinimumSystemVersion: "$(MACOSX_DEPLOYMENT_TARGET)"
+        LSApplicationCategoryType: public.app-category.developer-tools
+        NSHumanReadableCopyright: "QLColorCode contributors. GNU GPL v3 or later."
+        UTImportedTypeDeclarations:
+          - UTTypeIdentifier: org.masonjames.qlcolorcode.typescript
+            UTTypeDescription: TypeScript source
+            UTTypeConformsTo: [public.source-code]
+            UTTypeTagSpecification:
+              public.filename-extension: [cts]
+          - UTTypeIdentifier: org.masonjames.qlcolorcode.tsx
+            UTTypeDescription: TypeScript JSX source
+            UTTypeConformsTo: [public.source-code]
+            UTTypeTagSpecification:
+              public.filename-extension: [tsx]
+          - UTTypeIdentifier: org.masonjames.qlcolorcode.jsx
+            UTTypeDescription: JavaScript JSX source
+            UTTypeConformsTo: [public.source-code]
+            UTTypeTagSpecification:
+              public.filename-extension: [jsx]
+          - UTTypeIdentifier: org.masonjames.qlcolorcode.toml
+            UTTypeDescription: TOML document
+            UTTypeConformsTo: [public.text]
+            UTTypeTagSpecification:
+              public.filename-extension: [toml]
+          - UTTypeIdentifier: org.rust-lang.rust
+            UTTypeDescription: Rust source
+            UTTypeConformsTo: [public.source-code]
+            UTTypeTagSpecification:
+              public.filename-extension: [rs]
+          - UTTypeIdentifier: org.golang.go
+            UTTypeDescription: Go source
+            UTTypeConformsTo: [public.source-code]
+            UTTypeTagSpecification:
+              public.filename-extension: [go]
+          - UTTypeIdentifier: org.jetbrains.kotlin
+            UTTypeDescription: Kotlin source
+            UTTypeConformsTo: [public.source-code]
+            UTTypeTagSpecification:
+              public.filename-extension: [kt, kts]
+          - UTTypeIdentifier: org.lua.lua
+            UTTypeDescription: Lua source
+            UTTypeConformsTo: [public.source-code]
+            UTTypeTagSpecification:
+              public.filename-extension: [lua]
+    entitlements:
+      path: App/QLColorCode.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.files.user-selected.read-only: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.masonjames.QLColorCode
+        PRODUCT_NAME: QLColorCode
+    dependencies:
+      - target: QLColorCodePreview
+        embed: true
+  QLColorCodePreview:
+    type: app-extension
+    platform: macOS
+    sources:
+      - Preview
+      - Core
+      - path: Resources
+        buildPhase: resources
+      - path: ../COPYING
+        buildPhase: resources
+    info:
+      path: Preview/Info.plist
+      properties:
+        CFBundleDisplayName: QLColorCode Preview
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        LSMinimumSystemVersion: "$(MACOSX_DEPLOYMENT_TARGET)"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.quicklook.preview
+          NSExtensionPrincipalClass: "$(PRODUCT_MODULE_NAME).PreviewProvider"
+          NSExtensionAttributes:
+            QLIsDataBasedPreview: true
+            QLSupportsSearchableItems: false
+            QLSupportedContentTypes:
+              - public.source-code
+              - public.c-source
+              - public.c-header
+              - public.c-plus-plus-source
+              - public.c-plus-plus-header
+              - public.objective-c-source
+              - public.objective-c-plus-plus-source
+              - public.swift-source
+              - public.python-script
+              - public.ruby-script
+              - public.perl-script
+              - public.php-script
+              - com.netscape.javascript-source
+              - com.sun.java-source
+              - public.zsh-script
+              - public.csh-script
+              - public.make-source
+              - com.microsoft.c-sharp
+              - org.tug.lua
+              - org.yaml.yaml
+              - public.sql
+              - org.iso.sql
+              - org.jetbrains.kotlin
+              - org.lua.lua
+              - public.shell-script
+              - public.json
+              - public.xml
+              - public.yaml
+              - public.toml
+              - org.masonjames.qlcolorcode.toml
+              - public.css
+              - net.daringfireball.markdown
+              - org.masonjames.qlcolorcode.typescript
+              - org.masonjames.qlcolorcode.tsx
+              - org.masonjames.qlcolorcode.jsx
+              - com.microsoft.typescript
+              - org.rust-lang.rust
+              - org.golang.go
+    entitlements:
+      path: Preview/QLColorCodePreview.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.files.user-selected.read-only: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.masonjames.QLColorCode.Preview
+        APPLICATION_EXTENSION_API_ONLY: YES
+        SKIP_INSTALL: YES
+schemes:
+  QLColorCode:
+    build:
+      targets:
+        QLColorCode: all

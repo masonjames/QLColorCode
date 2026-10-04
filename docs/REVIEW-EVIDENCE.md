@@ -108,6 +108,12 @@ repeated the scroll, and selected both import statements; the accessibility read
 contained the exact source and excluded gutter numbers. Runtime logs confirmed that
 the corrected navigation-policy delegate ran and WebKit finished loading. Clipboard
 copy and network-traffic isolation have not been independently verified.
+A second synthetic fixture showed eight numbered lines, accented text, Japanese,
+emoji, and literal script/image/entity markup without interpreting it as HTML.
+Horizontal-scroll attempts over the scroll area and long line produced no visible
+movement; reaching the long line's end remains unverified and requires follow-up.
+This is an outstanding UI check, not a passing horizontal-scroll result.
+
 Screenshots and a signed bundle hash/entitlement manifest are retained under ignored
 `build/evidence/`; signed binaries and personal receipts are not published.
 

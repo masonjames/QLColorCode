@@ -87,10 +87,11 @@ No maintainer was contacted.
 Mason confirmed horizontal scrolling during the installed trial. His preference
 for the next polish pass is automatic wrapping to the preview width, without a
 setting for users to configure. Preserve original source line numbers, indentation
-and copied text. The current build still scrolls horizontally; a wrapping change
-must align the gutter with logical source lines when a line spans multiple rows.
-Also replace exposed grammar IDs with friendly language names, especially TOML's
-current `ini` label.
+and copied text. The polish implementation now wraps each logical line and keeps
+its number aligned, including multiline highlighted tokens. WebKit layout and
+selection tests cover narrow/wide previews and light/dark appearance. The installed
+trial remains the earlier horizontally scrolling build until an approved update.
+Friendly language names replace grammar IDs, including TOML's old `ini` label.
 
 ## Verification and release gates
 

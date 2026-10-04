@@ -165,3 +165,69 @@ remain untested. These checks do not establish a hard highlighting time bound.
 
 No notarization, public binary release, Homebrew cask change, or legacy installed
 generator replacement has occurred.
+
+## October 4 polish pass
+
+The next changeset adds automatic wrapping, friendly language labels, and a
+provisional Prism Q app icon. Logical-line wrappers close and reopen Highlight.js
+token spans across newlines. This preserves multiline highlighting, indentation
+and literal selectable text while keeping each number beside its original line.
+There is no wrapping preference to configure. The identity concepts, exact GPT
+image prompts, packaging steps and provisional selection are under `docs/brand/`.
+
+Three additional public-source packets were reviewed through Claude CLI with
+tools, MCP servers, hooks and session persistence disabled. All three responses
+report actual model `claude-opus-5-5`; screenshots and private trial receipts were
+not supplied. The image assets were inspected locally, not by this text reviewer.
+
+| Packet | SHA-256 | Scope |
+| --- | --- | --- |
+| Polish plan | `9957a6e4816b8178989c4ca43179b35d2433232579564389ccccfb19b1ad4a15` | Per-line HTML, selection, language labels, standard app-icon packaging |
+| Polish implementation | `d2f8d5cdd723cf01b0deb01528109cda083e15bd0f50905b5ecd125928b51861` | Renderer, labels, app header, icon catalog metadata, bundle verification and tests |
+| Polish follow-up | `b29b02e618b646729dd4b8f0c85e57296a59c9bb146e5cd1e30847091d92aae4` | Unicode-scalar tokenization, literal escaping and strengthened WebKit assertions |
+
+The implementation review identified a real safe-fallback bug: Swift's default
+grapheme regex semantics could merge a closing `>` with a following combining
+mark. The parent reproduced `keycap.js` losing highlighting, changed both token
+regexes to Unicode-scalar semantics, and proved the regression passes. Tests now
+reject silent highlighting loss and exercise nested, multiline, multi-class spans.
+
+The follow-up raised a conditional CRLF concern because the packet omitted the
+reader's existing newline normalization. The parent verified `SourceDocument.read`
+normalizes CRLF and CR before rendering; additional end-to-end core cases prove
+CRLF with/without a terminal newline and mixed endings retain the final line.
+No reader change was needed. The reviewer did not run builds/tests. Its remaining
+observations about full VoiceOver, pasteboard, token colors and icon appearance
+are not converted into passing evidence.
+
+Final local gates:
+
+- Legacy regression, pinned-resource checks and 72 core assertions pass, including
+  14 rendering fixtures and the CRLF/combining-mark regressions.
+- `scripts/test-preview-layout.sh` runs the actual renderer in WebKit: 484 assertions
+  over 13 fixtures at 320/960 pixels, in light/dark appearance. DOM text, Range text,
+  full and partial selection retain normalized source. Tests check logical-line
+  count/contiguity, no horizontal overflow, continued comment tokens, long-token
+  wrapping, visible truncation, readable TOML labels, no silent highlighting
+  fallback and the actual body background for each appearance. This is selection
+  evidence, not an actual pasteboard roundtrip or full accessibility audit.
+- Universal Developer ID development builds pass strict signatures, hardened
+  runtime, resource, entitlement and icon-bundle checks. The icon is present only
+  in the app; the extension has no asset catalog. No timestamp/notarization claim.
+
+The signed companion UI showed the long comment wrapping over eleven visual rows
+at its original window width and seven after widening, with all six logical line
+numbers aligned. The TOML fixture displayed `TOML · 3 lines` and colored source.
+The first header used a cached generic application icon; loading the bundled
+`AppIcon` by name fixed it. A rebuilt signed app visibly shows Prism Q and the
+2007 credit. The parent inspected the screenshots, rechecked the build gates and
+verified the running companion executable came from the development build path.
+This final icon lookup is a small parent-reviewed correction after the external
+packets. The installed modern app and legacy generator still match their original
+trial manifests (19 and 498 files respectively).
+
+Private receipts and screenshots remain in ignored `build/evidence/`. The earlier
+installed Finder trial has not been replaced by this polish build. Finder reflow,
+macOS 15/26, Intel execution, VoiceOver and downloaded Gatekeeper qualification
+remain separate gates. Hosted CI has not run; the WebKit step is added only to the
+existing manual workflow template.

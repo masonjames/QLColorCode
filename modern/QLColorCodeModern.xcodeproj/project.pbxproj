@@ -13,6 +13,7 @@
 		1706976E41100C45924C3F3A /* PreviewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84854FA54FECC92E3206ED /* PreviewRenderer.swift */; };
 		23148ECE79D8BB755818364D /* SourceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E1BB528483F5DAD36C9AD1 /* SourceDocument.swift */; };
 		50EB4FE6073ACB93EAE2535E /* QLColorCodePreview.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 574392D55CC7E78E8113DD5C /* QLColorCodePreview.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		552DA29B74CB90000C61AEE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2843D360651F9BE77D189197 /* Assets.xcassets */; };
 		5F2234534B9AA852C75FF195 /* PROVENANCE.md in Resources */ = {isa = PBXBuildFile; fileRef = D3CBABAB8671F2748460CFC4 /* PROVENANCE.md */; };
 		6347293548530452548E8926 /* PreviewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84854FA54FECC92E3206ED /* PreviewRenderer.swift */; };
 		6392C406F4AC614D7B4616E9 /* highlight.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 19C167C5389B1E35A3ED239E /* highlight.min.js */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		19C167C5389B1E35A3ED239E /* highlight.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = highlight.min.js; sourceTree = "<group>"; };
 		1D84854FA54FECC92E3206ED /* PreviewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewRenderer.swift; sourceTree = "<group>"; };
+		2843D360651F9BE77D189197 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		574392D55CC7E78E8113DD5C /* QLColorCodePreview.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QLColorCodePreview.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F630C0BE559A7C24D96B14A /* QLColorCodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLColorCodeApp.swift; sourceTree = "<group>"; };
 		90737B0406FF0CD091E4E831 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 		BDBE3F18C8567FE2F5AAD675 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				2843D360651F9BE77D189197 /* Assets.xcassets */,
 				90737B0406FF0CD091E4E831 /* Info.plist */,
 				EAB5C758B9E114F0C105DFC7 /* PreviewWebView.swift */,
 				F18C26F6A37130F336BEFA2E /* QLColorCode.entitlements */,
@@ -232,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				552DA29B74CB90000C61AEE6 /* Assets.xcassets in Resources */,
 				059BC7C648715AC1166542CB /* COPYING in Resources */,
 				B477E8FD63B752B9CD6E7A4E /* PROVENANCE.md in Resources */,
 				0F2E8B63B0F4B6CA5E8F87BD /* highlight-LICENSE in Resources */,

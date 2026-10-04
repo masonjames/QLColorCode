@@ -13,6 +13,8 @@ struct QLColorCodeApp: App {
 }
 
 private struct ContentView: View {
+    private let appIcon = NSImage(named: "AppIcon").map { Image(nsImage: $0) }
+        ?? Image(systemName: "doc.text.magnifyingglass")
     @State private var html: String?
     @State private var fileName: String?
     @State private var error: String?
@@ -23,8 +25,9 @@ private struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 14) {
-                Image(systemName: "doc.text.magnifyingglass")
-                    .font(.system(size: 28)).foregroundStyle(.tint)
+                appIcon
+                    .resizable().frame(width: 48, height: 48)
+                    .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 3) {
                     Text("QLColorCode").font(.title2.weight(.semibold))
                     Text("A closer look at your code.").foregroundStyle(.secondary)
@@ -59,6 +62,8 @@ private struct ContentView: View {
                     Button("Open System Settings") { NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Applications/System Settings.app")) }
                     Text("Choose a file above to test rendering here. Finder previews also require the extension to be enabled.")
                         .font(.callout).foregroundStyle(.secondary)
+                    Text("Source previews since 2007.")
+                        .font(.caption).foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: 580, alignment: .leading)
                 .padding(30).frame(maxWidth: .infinity, maxHeight: .infinity)

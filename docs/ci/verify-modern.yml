@@ -11,6 +11,8 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Check renderer and legacy regression
         run: bash scripts/test-modern.sh
+      - name: Check WebKit wrapping and source selection
+        run: bash scripts/test-preview-layout.sh
       - name: Build universal app from checked-in project
         run: >-
           xcodebuild -project modern/QLColorCodeModern.xcodeproj

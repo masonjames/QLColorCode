@@ -16,7 +16,7 @@ disabled on September 27, 2026. It does not install this fork.
 ## Modern preview
 
 The new Swift app embeds a sandboxed Quick Look preview extension. Its renderer
-provides selectable source, line numbers, horizontal scrolling, and automatic
+provides selectable source, logical line numbers, automatic wrapping, and
 light/dark colors. Highlighting runs offline through a pinned copy of
 [highlight.js](modern/Resources/PROVENANCE.md). It does not execute source files,
 invoke a shell, download grammars, or require a runtime Homebrew dependency.
@@ -38,6 +38,7 @@ Xcode project can also be opened directly in Xcode.
 
 ```sh
 bash scripts/test-modern.sh
+bash scripts/test-preview-layout.sh
 bash scripts/build-modern.sh
 ```
 
@@ -53,6 +54,11 @@ Services. It does not copy the app into Applications, manually enable its extens
 alter the old generator, or use a Developer ID certificate. A passing build is not a Gatekeeper or notarization
 result. The old Xcode project remains at the repository root for historical use;
 new development belongs in `modern/`.
+
+The WebKit layout test checks exact source selection, wrapping and gutter geometry
+at narrow and wide sizes in light/dark appearance. It requires a logged-in macOS
+session with WebKit available. It does not install or enable the extension.
+The current icon concepts and their prompts are in [the identity notes](docs/brand/README.md).
 
 ## Known limits
 

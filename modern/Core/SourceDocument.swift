@@ -20,6 +20,23 @@ struct SourceDocument {
     let language: String?
     let truncated: Bool
 
+    var languageName: String {
+        guard let language else { return "Plain text" }
+        let ext = (name.lowercased() as NSString).pathExtension
+        if ext == "toml" { return "TOML" }
+        if ext == "html" { return "HTML" }
+        if ext == "plist" { return "XML property list" }
+        if ext == "mm" { return "Objective-C++" }
+        if ext == "jsx" { return "JavaScript JSX" }
+        if ext == "tsx" { return "TypeScript JSX" }
+        return [
+            "c": "C", "cpp": "C++", "objectivec": "Objective-C", "csharp": "C#",
+            "javascript": "JavaScript", "typescript": "TypeScript", "bash": "Shell",
+            "json": "JSON", "yaml": "YAML", "ini": "INI", "xml": "XML",
+            "css": "CSS", "scss": "SCSS", "php": "PHP", "sql": "SQL", "graphql": "GraphQL"
+        ][language] ?? language.capitalized
+    }
+
     var lineCount: Int {
         guard !text.isEmpty else { return 0 }
         return text.filter { $0 == "\n" }.count + (text.hasSuffix("\n") ? 0 : 1)

@@ -7,6 +7,13 @@ import sys
 
 app = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("build/modern/Build/Products/Debug/QLColorCode.app")
 extension = app / "Contents/PlugIns/QLColorCodePreview.appex"
+with (app / "Contents/Info.plist").open("rb") as stream:
+    app_info = plistlib.load(stream)
+assert app_info["CFBundleIconName"] == "AppIcon"
+assert app_info["CFBundleIconFile"] == "AppIcon"
+assert (app / "Contents/Resources/AppIcon.icns").is_file()
+assert not (extension / "Contents/Resources/AppIcon.icns").exists(), "App icon must not be duplicated in the extension"
+assert not (extension / "Contents/Resources/Assets.car").exists(), "App assets must not be duplicated in the extension"
 for bundle in (app, extension):
     with (bundle / "Contents/Info.plist").open("rb") as stream:
         info = plistlib.load(stream)

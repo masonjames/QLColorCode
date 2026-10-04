@@ -64,6 +64,12 @@ struct ModernCoreTests {
         try expect(renderer.render(try SourceDocument.read(empty)).contains("<code></code>"), "Empty preview")
         let crlf = try write("crlf.js", Data("a\r\nb\rc".utf8))
         try expect(try SourceDocument.read(crlf).text == "a\nb\nc", "Line ending normalization")
+        for (input, finalLine) in [("a\r\nb", 2), ("a\r\nb\r\n", 2), ("a\r\nb\nc", 3)] {
+            let file = try write("line-endings.txt", Data(input.utf8))
+            let document = try SourceDocument.read(file)
+            let preview = renderer.render(document)
+            try expect(document.lineCount == finalLine && preview.contains("data-line=\"\(finalLine)\">\(finalLine == 2 ? "b" : "c")"), "CRLF/mixed endings keep the final logical line")
+        }
         let formFeed = try write("formfeed.c", Data("/* page */\u{0C}int main() {}\n".utf8))
         try expect(try SourceDocument.read(formFeed).text.contains("\u{0C}"), "Form feed is source whitespace")
         let exactLines = try write("exact.go", Data(String(repeating: "x\n", count: SourceDocument.lineLimit).utf8))
@@ -102,6 +108,23 @@ struct ModernCoreTests {
         try expect(!FileManager.default.fileExists(atPath: root.appendingPathComponent("executed").path), "Source never executes")
         let plain = PreviewRenderer(library: nil).render(source)
         try expect(plain.contains("Plain text") && plain.contains("Hello 👋"), "Missing parser falls back")
+        try expect(PreviewRenderer.escape("<\u{0338}script>&\u{0338}") == "&lt;\u{0338}script&gt;&amp;\u{0338}", "Literal escaping beside combining marks")
+        let nestedMarkup = "<span class=\"hljs-title function_\">first<span class=\"hljs-string\">\nsecond</span></span>"
+        let nestedValue = String(data: try JSONSerialization.data(withJSONObject: [nestedMarkup]), encoding: .utf8)!
+        let nestedLibrary = "var hljs = {getLanguage: () => true, highlight: () => ({value: \(nestedValue)[0]})};"
+        let nestedDocument = SourceDocument(name: "nested.js", text: "first\nsecond", language: "javascript", truncated: false)
+        let nestedHTML = PreviewRenderer(library: nestedLibrary).render(nestedDocument)
+        try expect(nestedHTML.contains("<span class=\"line\" data-line=\"1\"><span class=\"hljs-title function_\">first<span class=\"hljs-string\"></span></span>\n</span><span class=\"line\" data-line=\"2\"><span class=\"hljs-title function_\"><span class=\"hljs-string\">second</span></span></span>"), "Nested multiline and multi-class tokens remain balanced per line")
+        for markup in ["</span>", "<span class=\"hljs-comment\">unfinished", "<img src=x>", "<span onclick=\"alert(1)\">bad</span>"] {
+            let encoded = String(data: try JSONSerialization.data(withJSONObject: [markup]), encoding: .utf8)!
+            let brokenLibrary = "var hljs = {getLanguage: () => true, highlight: () => ({value: \(encoded)[0]})};"
+            let preview = PreviewRenderer(library: brokenLibrary).render(source)
+            try expect(preview.contains("Plain text") && preview.contains("Hello 👋") && !preview.contains("<img "), "Malformed markup falls back to literal source")
+        }
+        for (name, label) in [("code.cpp", "C++"), ("code.mm", "Objective-C++"), ("app.cs", "C#"), ("settings.toml", "TOML"), ("settings.ini", "INI"), ("view.tsx", "TypeScript JSX")] {
+            let document = SourceDocument(name: name, text: "", language: SourceDocument.language(for: name), truncated: false)
+            try expect(document.languageName == label, "Readable language name for \(name)")
+        }
         try expect(SourceDocument.language(for: "Main.TSX") == "typescript", "TSX mapping")
         try expect(SourceDocument.language(for: "Makefile") == "makefile", "Extensionless build file")
         try expect(SourceDocument.language(for: "unrecognized.bin") == nil, "Unknown extension")

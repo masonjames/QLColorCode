@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		059BC7C648715AC1166542CB /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = A7C09410548B4F402C8440C5 /* COPYING */; };
+		0A9D214822A43FF85D0543AF /* PreviewWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB5C758B9E114F0C105DFC7 /* PreviewWebView.swift */; };
 		0F2E8B63B0F4B6CA5E8F87BD /* highlight-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D5456153B66F32150E6CB2FF /* highlight-LICENSE */; };
 		1706976E41100C45924C3F3A /* PreviewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84854FA54FECC92E3206ED /* PreviewRenderer.swift */; };
 		23148ECE79D8BB755818364D /* SourceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E1BB528483F5DAD36C9AD1 /* SourceDocument.swift */; };
@@ -62,6 +63,7 @@
 		D3CBABAB8671F2748460CFC4 /* PROVENANCE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PROVENANCE.md; sourceTree = "<group>"; };
 		D5456153B66F32150E6CB2FF /* highlight-LICENSE */ = {isa = PBXFileReference; path = "highlight-LICENSE"; sourceTree = "<group>"; };
 		D870862DC603890A28796E21 /* QLColorCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QLColorCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAB5C758B9E114F0C105DFC7 /* PreviewWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewWebView.swift; sourceTree = "<group>"; };
 		F18C26F6A37130F336BEFA2E /* QLColorCode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QLColorCode.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				90737B0406FF0CD091E4E831 /* Info.plist */,
+				EAB5C758B9E114F0C105DFC7 /* PreviewWebView.swift */,
 				F18C26F6A37130F336BEFA2E /* QLColorCode.entitlements */,
 				6F630C0BE559A7C24D96B14A /* QLColorCodeApp.swift */,
 			);
@@ -244,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1706976E41100C45924C3F3A /* PreviewRenderer.swift in Sources */,
+				0A9D214822A43FF85D0543AF /* PreviewWebView.swift in Sources */,
 				B3D328C132C0CB559A22CB1B /* QLColorCodeApp.swift in Sources */,
 				6A4FF8871CDE6AC7F3B06C81 /* SourceDocument.swift in Sources */,
 			);
@@ -354,6 +358,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
@@ -437,6 +442,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 6.0;
 			};
 			name = Release;

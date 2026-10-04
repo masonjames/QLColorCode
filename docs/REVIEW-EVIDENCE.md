@@ -16,6 +16,7 @@ The reviewer did not run builds, inspect the repository or test the app.
 | plan | `claude-opus-5-5` | `2b0394bfc3c4194d4eb029b8a209a3cae0a1c08bb4f6a01e6bd38ee138d4c08e` |
 | implementation | `claude-opus-5-5` | `25e70903fe9d883e1a89e5dce54253903734fee60804e26bb01d7505b66d52ac` |
 | followup | `claude-opus-5-5` | `9475c67d94df03293e64dd1b4c21265ad12513a9f0f94bfdd0262aca2cc78426` |
+| WebKit startup fix | `claude-opus-5-5` | `20dfe81a67d32080120c2b6e6c6865a64da5529ff4180498cef8451cb47bf440` |
 
 The plan covered the proposed architecture and legacy findings. The implementation
 packet covered the Swift reader/renderer/provider/app, XcodeGen specification,
@@ -37,7 +38,7 @@ code-signing flags. No claim that those final configuration edits received an
 additional independent review is made.
 
 Outstanding review items remain in `REVIVAL-REVIEW.md`: highlighting wall-clock
-bound, real Finder and hardened-runtime behavior, dataless/cloud files, older OS
+bound, real Finder-hosted hardened-runtime behavior, dataless/cloud files, older OS
 and Intel runtime qualification, encoding policy, UX polish and feature parity.
 
 ## Parent verification
@@ -51,8 +52,12 @@ and Intel runtime qualification, encoding policy, UX polish and feature parity.
 - Modern app and embedded extension build for arm64 + x86_64 on macOS 27.0.1 /
   Xcode 27.0. Both bundles pass the post-build verifier: exact resource hashes,
   license notices, macOS 15 minimum, preview-extension metadata, architecture
-  slices, sandbox entitlements, no network/JIT entitlement, and strict signatures.
-- Artifact flags explicitly read `adhoc`; hardened runtime is not validated.
+  slices, sandbox entitlements, and strict signatures. The companion app now has
+  the network-client entitlement required by WebKit; the extension does not.
+  Neither target has network-server, JIT, or disabled-library-validation entitlements.
+- Default builds remain ad hoc. With Mason's explicit approval, both bundles were
+  also signed locally with Developer ID and verified with hardened runtime enabled.
+  These diagnostic builds have no secure timestamp and are not notarized.
 - Property lists and entitlements pass `plutil -lint`; `git diff --check` passes.
 - UTI lookup in the filesystem sandbox produces dynamic identifiers because its
   Launch Services view is incomplete. A direct read outside the sandbox confirms
@@ -66,18 +71,47 @@ and Intel runtime qualification, encoding policy, UX polish and feature parity.
 
 ## Visual / Finder evidence
 
-The delegated Computer Use call stalled and was interrupted after approximately
+The initial delegated Computer Use call stalled and was interrupted after approximately
 649 seconds without returning state. It supplied no visual evidence. The parent
-then repeated the check through Computer Use and successfully opened the app and
-selected `modern/Core/SourceDocument.swift` through the file picker.
+then opened the app and selected `modern/Core/SourceDocument.swift` through the file
+picker. The filename appeared, but the ad hoc build's preview area remained blank.
 
-The source was read (the selected filename appeared), but the preview area remained
-blank. App logs show WebKit process-launch/crash errors; macOS also logged ad hoc
-signature rejection diagnostics for this app. These observations do not yet prove
-that signing is the cause. No network entitlement or OS security bypass was added.
-A separate Developer ID diagnostic build requires Mason's approval.
+Mason explicitly approved signing and testing a local Developer ID build, without
+installation, notarization or publication. The unchanged source at `b63d6a1` passed
+strict signature verification with hardened runtime on both app and extension. Its
+companion preview still remained blank. The app process started after signing;
+WebKit's matching GPU and Networking helper logs reported: "Application does not
+have permission to communicate with network resources. rc=1 : errno=34". Signing
+alone did not fix the failure.
+
+The bounded WebKit fix adds the network-client entitlement only to the companion
+app. Before loading local HTML it installs a block-all-resource content rule;
+JavaScript remains disabled, storage is nonpersistent, CSP remains in the generated
+document, and navigation allows only the synthetic main-frame `about:blank` load.
+Quick Look's separate host renderer relies on the escaped HTML and CSP, not these
+companion-only WebKit controls. No actual network-traffic capture has been performed.
+
+Opus reviewed the app/view, renderer, preview provider, project specification and
+bundle verifier. It correctly identified a Swift 6 optional-delegate signature
+mismatch, confirmed in the build log. The parent switched to the async delegate,
+made Swift warnings fatal, added private-content-free diagnostic logging, a
+10-second WebKit-load watchdog, completion tracking, visible failure states and
+stale-document clearing, and asserted hardened runtime for non-ad-hoc signatures.
+The watchdog bounds WebKit loading only; it does not bound JavaScriptCore parsing.
+These review corrections were checked by the parent, not a fifth external review.
+The corrected universal signed build passed with no Swift warnings.
+
+The signed companion app then rendered `SourceDocument.swift` with syntax colors,
+a line-number gutter and the expected 135-line header. The delegated test observed
+vertical scrolling from lines 1–22 to 23–48. The parent inspected the screenshot,
+repeated the scroll, and selected both import statements; the accessibility readback
+contained the exact source and excluded gutter numbers. Runtime logs confirmed that
+the corrected navigation-policy delegate ran and WebKit finished loading. Clipboard
+copy and network-traffic isolation have not been independently verified.
+Screenshots and a signed bundle hash/entitlement manifest are retained under ignored
+`build/evidence/`; signed binaries and personal receipts are not published.
 
 Read-only PlugInKit inspection found the new preview extension registered from the
-build directory. Finder invocation, text selection, scrolling and syntax colors
-remain unverified. A screenshot of the blank companion preview is retained locally
-for diagnosis; it is not presented as passing UI evidence.
+build directory. Finder invocation remains unverified. No manual extension
+activation, Applications installation, notarization, public binary release or
+installed-generator replacement has occurred.

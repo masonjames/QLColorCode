@@ -22,10 +22,13 @@ for bundle in (app, extension):
     signature = subprocess.run(["codesign", "-dv", str(bundle)], capture_output=True, text=True, check=True)
     flags = [line for line in signature.stderr.splitlines() if line.startswith("CodeDirectory ") or line.startswith("Signature=")]
     print(f"{bundle.name}: {'; '.join(flags)}")
+    if "Signature=adhoc" not in flags:
+        assert any("(runtime)" in line for line in flags), "Signed builds must enable hardened runtime"
     entitlements = plistlib.loads(signed.stdout)
     assert entitlements.get("com.apple.security.app-sandbox") is True
+    assert bool(entitlements.get("com.apple.security.network.client")) == (bundle == app), entitlements
     assert not any(entitlements.get(key) for key in (
-        "com.apple.security.network.client", "com.apple.security.network.server",
+        "com.apple.security.network.server",
         "com.apple.security.cs.allow-jit", "com.apple.security.cs.disable-library-validation",
     )), entitlements
 with (extension / "Contents/Info.plist").open("rb") as stream:

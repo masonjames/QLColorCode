@@ -22,6 +22,9 @@ invoke a shell, download grammars, or require a runtime Homebrew dependency.
 
 The app also offers **Choose a file…** to exercise the renderer independently of
 Finder. This is useful when diagnosing file-type registration conflicts.
+WebKit requires outgoing-network permission to start in the companion app, even
+for local HTML; previews block resource requests and external navigation. The
+Quick Look extension has no network permission. Neither renderer fetches content.
 
 This is a new engine: André Simon's Highlight options, plugins, and theme names
 from the old generator are not compatible. Existing preferences are not changed.

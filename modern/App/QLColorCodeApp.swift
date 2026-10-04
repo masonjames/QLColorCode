@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 import SwiftUI
-import WebKit
 import UniformTypeIdentifiers
 
 @main
@@ -17,6 +16,7 @@ private struct ContentView: View {
     @State private var html: String?
     @State private var fileName: String?
     @State private var error: String?
+    @State private var renderingError: String?
     @State private var choosingFile = false
     @State private var loading = false
 
@@ -38,8 +38,12 @@ private struct ContentView: View {
             Divider()
             if loading {
                 ProgressView("Preparing preview…").frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else if let renderingError {
+                ContentUnavailableView("Preview unavailable", systemImage: "doc.badge.ellipsis",
+                    description: Text(renderingError))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if let html {
-                PreviewWebView(html: html)
+                PreviewWebView(html: html) { renderingError = $0 }
             } else {
                 VStack(alignment: .leading, spacing: 20) {
                     Text("Source previews, right in Finder.").font(.title.weight(.semibold))
@@ -61,7 +65,7 @@ private struct ContentView: View {
             }
             Divider()
             HStack {
-                Text(fileName ?? "Offline by design. Your files stay on your Mac.")
+                Text(fileName ?? "Local syntax highlighting. No content downloads.")
                     .lineLimit(1).truncationMode(.middle)
                 Spacer()
                 Text("Development preview").foregroundStyle(.secondary)
@@ -81,6 +85,9 @@ private struct ContentView: View {
 
     private func preview(_ url: URL) {
         loading = true
+        renderingError = nil
+        html = nil
+        fileName = nil
         Task {
             do {
                 let rendered = try await Task.detached(priority: .userInitiated) {
@@ -97,24 +104,4 @@ private struct ContentView: View {
             loading = false
         }
     }
-}
-
-private struct PreviewWebView: NSViewRepresentable {
-    let html: String
-
-    func makeNSView(context: Context) -> WKWebView {
-        let configuration = WKWebViewConfiguration()
-        configuration.defaultWebpagePreferences.allowsContentJavaScript = false
-        configuration.websiteDataStore = .nonPersistent()
-        return WKWebView(frame: .zero, configuration: configuration)
-    }
-
-    func updateNSView(_ view: WKWebView, context: Context) {
-        guard context.coordinator.html != html else { return }
-        context.coordinator.html = html
-        view.loadHTMLString(html, baseURL: nil)
-    }
-
-    func makeCoordinator() -> Coordinator { Coordinator() }
-    final class Coordinator { var html: String? }
 }

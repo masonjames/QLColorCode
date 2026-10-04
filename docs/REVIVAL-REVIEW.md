@@ -62,7 +62,13 @@ and a pinned highlight.js common-language bundle running in JavaScriptCore. User
 source is passed as strings, not evaluated. Generated HTML escapes source and names;
 CSP blocks scripts/resources, inline CSS is allowed, and the companion web view has
 JavaScript disabled. Both targets are sandboxed with read-only user-selected-file
-access and no network entitlement.
+access. The companion app requires the outgoing-network entitlement for WebKit
+helper startup, even for local HTML. It installs a block-all-resource content rule
+before loading the generated document and cancels external navigation. The preview
+extension has no network entitlement. This is application-level resource blocking,
+not a claim that the companion's sandbox prohibits networking. See the signed
+diagnostic in `REVIEW-EVIDENCE.md` and the same WebKit limitation documented by
+[Sparkle](https://sparkle-project.org/documentation/sandboxing/).
 
 Replacing André Simon's Highlight avoids carrying the old shell/C++/Lua integration
 into a modern extension, but loses theme/flag/plugin parity and some language coverage.

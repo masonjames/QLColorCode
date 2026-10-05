@@ -95,7 +95,7 @@ case ${target} in
         lang=go
         ;;
     *.pch | *.h )
-        if grep -q "@interface" <(${target}) &> /dev/null; then
+        if grep -q -- "@interface" "${target}"; then
             lang=objc
         else
             lang=h

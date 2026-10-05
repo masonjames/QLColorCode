@@ -1,165 +1,113 @@
-# QLColorCode
+<p align="center">
+  <img src="modern/App/Assets.xcassets/AppIcon.appiconset/icon-256.png" width="112" height="112" alt="Prism Q: colored code strokes forming a magnifying glass around code brackets">
+</p>
+<h1 align="center">QLColorCode</h1>
+<p align="center"><strong>A closer look at your code.</strong><br>Source previews since 2007. Rebuilt for modern macOS.</p>
+<p align="center">
+  <a href="#try-the-development-preview">Get started</a> ·
+  <a href="CONTRIBUTING.md">Contribute</a> ·
+  <a href="docs/ROADMAP.md">Roadmap</a> ·
+  <a href="https://github.com/masonjames/QLColorCode/issues/new/choose">Report a bug</a>
+</p>
 
-[![Build Status](https://travis-ci.org/anthonygelibert/QLColorCode.svg?branch=master)](https://travis-ci.org/anthonygelibert/QLColorCode)
+Select a source file in Finder, press **Space**, and read it in color. QLColorCode
+brings syntax highlighting, original line numbers and automatic wrapping to
+Quick Look, with a small companion app for trying previews and setting up the extension.
 
-**Original project:** <http://code.google.com/p/qlcolorcode/>
+> **Development preview — build from source.** There is no signed, notarized
+> download yet. This revival targets **macOS Sequoia 15 and newer**; current local
+> runtime evidence is from Golden Gate 27.0.1 on Apple Silicon. It is not an
+> official successor or a replacement distributed by Homebrew.
 
-This is a Quick Look plug-in that renders source code with syntax highlighting, using the
-[Highlight library](http://www.andre-simon.de).
+![QLColorCode development companion showing the public Swift palette example with syntax highlighting and line numbers](docs/images/preview.jpg)
 
-To install the plug-in, just drag it to `~/Library/QuickLook`. You may need to create that folder if it doesn't already
-exist.
+*An actual development companion preview of [Palette.swift](examples/Palette.swift),
+not a mockup. Finder uses the same renderer.*
 
-Alternatively, if you use [Homebrew Cask](https://github.com/caskroom/homebrew-cask), install with
-`brew install --cask qlcolorcode`. Also available on [MacPorts](https://www.macports.org): `port install QLColorCode`.
+## Small utility, thoughtful defaults
 
-**To build the project, you must have Boost headers on your system in `/opt/local/include` or `/usr/local/include`.**
+- **Read the source.** Syntax colors, selectable text and original line numbers.
+- **Let long lines wrap.** The gutter follows logical lines as the window changes size.
+- **Match your Mac.** Automatic light and dark colors; no theme setup required.
+- **Keep previews local.** Bundled grammars, no content downloads or source execution.
+- **Know when a preview is partial.** Large files have bounded previews with a visible notice.
 
-## Settings
+## Try the development preview
 
-If you want to configure `QLColorCode`, there are several `defaults` commands that could be useful:
+You'll need a Mac with **macOS 15+**, **full Xcode with Swift 6**, and its command-line
+tools selected. No package manager or XcodeGen is needed for an ordinary build.
+The current toolchain verified by this fork is Xcode 27; older toolchains still
+need qualification.
 
-Setting the text encoding (default is `UTF-8`). Two settings are required. The first sets Highlight's encoding, the
-second sets Webkit's:
-
-    defaults write org.n8gray.QLColorCode textEncoding UTF-16
-    defaults write org.n8gray.QLColorCode webkitTextEncoding UTF-16
-
-Setting the font (default is `Menlo`):
-
-    defaults write org.n8gray.QLColorCode font Monaco
-
-Setting the font size (default is `10`):
-
-    defaults write org.n8gray.QLColorCode fontSizePoints 9
-
-Setting the color style for `light` and `dark` mode (see
-[all available themes](http://www.andre-simon.de/doku/highlight/theme-samples.php)):
-
-    defaults write org.n8gray.QLColorCode lightTheme solarized-light
-    defaults write org.n8gray.QLColorCode darkTheme solarized-dark
-
-Setting the thumbnail color style (deactivated by default):
-
-    defaults write org.n8gray.QLColorCode hlThumbTheme ide-xcode
-
-Setting the maximum size (in bytes, deactivated by default) for previewed files:
-
-    defaults write org.n8gray.QLColorCode maxFileSize 1000000
-
-zSetting any extra command-line flags for Highlight (see below):
-
-    defaults write org.n8gray.QLColorCode extraHLFlags '-l -W'
-
-Here are some useful 'highlight' command-line flags (from the main page):
-
-       -F, --reformat=<style>
-              reformat output in given style.   <style>=[ansi,  gnu,  kr,
-              java, linux]
-
-       -J, --line-length=<num>
-              line length before wrapping (see -W, -V)
-
-       -j, --line-number-length=<num>
-              line number length incl. left padding
-
-       -l, --line-numbers
-              print line numbers in output file
-
-       -t  --replace-tabs=<num>
-              replace tabs by num spaces
-
-       -V, --wrap-simple
-              wrap long lines without indenting function  parameters  and
-              statements
-
-       -W, --wrap
-              wrap long lines
-
-       -z, --zeroes
-              fill leading space of line numbers with zeroes
-
-       --kw-case=<upper|lower|capitalize>
-              control case of case insensitive keywords
-
-It is also possible to have the HTML preview converted to RTF. Using RTF allows the contents of the file to be displayed
-instead of an icon -- similar to QLStephen.
-
-    defaults write org.n8gray.QLColorCode rtfRender true
-
-## Additional information
-
-### Additional features
-
-#### Decompile
-
-QLColorCode decompiles some formats:
-
-- **Compiled AppleScript**. It requires `osadecompile` installed at `/usr/bin/osadecompile`.
-- **Binary PLIST**. It requires `plutil` installed at `/usr/bin/plutil`.
-
-### Highlight
-
-#### Plug-ins
-
-QLColorCode enables some Highlight plug-ins :
-
-- In all languages: `outhtml_codefold` and `reduce_filesize`.
-- Java (sources and classes): `java_library`.
-- C/C++: `cpp_syslog`, `cpp_ref_cplusplus_com` and `cpp_ref_local_includes`.
-- Perl: `perl_ref_perl_org`.
-- Python: `python_ref_python_org`.
-- Shell: `bash_functions`.
-- Scala: `scala_ref_scala_lang_org`.
-
-#### Handled languages
-
-Highlight can handle lots and lots of languages, but this plug-in will only be invoked for file types that the OS knows
-are type "source-code". Since the OS only knows about a limited number of languages, I've added Universal Type
-Identifier (UTI) declarations for several "interesting" languages. If I've missed your favorite language, take a look at
-the Info.plist file inside the plug-in bundle and look for the UTImportedTypeDeclarations section. I haven't added all
-the languages that Highlight can handle because it's rumored that having two conflicting UTI declarations for the same
-file extension can cause problems. Note that if you do edit the Info.plist file you need to nudge the system to tell it
-something has changed. Moving the plug-in to the desktop then back to its installed location should do the trick.
-
-As an aside, by changing colorize.sh you can use this plug-in to render any file type that you can convert to HTML. Have
-fun, and let me know if you do anything cool!
-
-##### Adding Language Types
-
-If QLColorCode doesn't display PHP and JavaScript code properly, their types may need to be added to Info.plist. Finding
-the right type string to use is the tricky part. Getting the type strings and getting Info.plist edits to take effect is
-easy by following the steps below, which explain how to add support for PHP:
-
-1. In Terminal.app (or any shell prompt), enter the command:
-
-```bash
-mdls -name kMDItemContentType /full/path/to/file.php
+```sh
+git clone https://github.com/masonjames/QLColorCode.git
+cd QLColorCode
+bash scripts/test-modern.sh
+bash scripts/test-preview-layout.sh
+bash scripts/build-modern.sh
 ```
 
-Use the path to any PHP file. The response will be:
+The app is built at `build/modern/Build/Products/Debug/QLColorCode.app`. You can also
+open `modern/QLColorCodeModern.xcodeproj` in Xcode. See the
+[development guide](docs/DEVELOPMENT.md) for tool selection, signing and local trials.
 
-```txt
-kMDItemContentType = "public.php-script"
-```
+**A successful build is not an install.** The default build uses ad hoc signing;
+macOS may refuse to run its extension. Finder testing needs a suitably signed app
+and an enabled Quick Look extension. Follow the [local-trial guide](docs/LOCAL-TRIAL.md)
+without disabling Gatekeeper or changing unrelated providers. In a working
+companion app, choose `examples/Palette.swift` to start with a safe sample.
 
-The string `public.php-script` is the type string needed in a later step.
+The old `brew install --cask qlcolorcode` package is
+[disabled](https://formulae.brew.sh/cask/qlcolorcode) and does not install this fork.
+The [release guide](docs/RELEASING.md) describes free DMG downloads and the
+planned `masonjames/tap` route. Both will use the same notarized artifact. No new
+Homebrew installation command is live yet.
 
-2. Again at a shell prompt, enter the command:
+## What works, and what needs help
 
-```bash
-open ~/Library/QuickLook/QLColorCode.qlgenerator/Contents/Info.plist
-```
+| Area | Current evidence |
+| --- | --- |
+| Renderer | Core and real WebKit checks cover Unicode, wrapping, selection, multiline tokens, large files and safe fallback |
+| Golden Gate 27.0.1 / Apple Silicon | Signed companion tested; earlier installed extension exercised in Finder |
+| Sequoia 15 / Tahoe 26 / Intel | Build targets are present; runtime qualification is still needed |
+| TypeScript | Companion can render it; `.tsx` worked in the Finder trial, while `.ts` conflicts with a macOS video type |
+| Distribution | No notarized download, published tap or official successor designation |
+| Release automation | Local Dagger checks and native macOS packaging; no GitHub Actions dependency |
 
-This will open Info.plist in Xcode.app.
+The [release roadmap](docs/ROADMAP.md) tracks the remaining work. The
+[verification record](docs/REVIEW-EVIDENCE.md) separates builds, runtime tests,
+installed versions and untested cases.
 
-3. In Xcode.app's edit window for Info.plist, go to:
+The modern renderer currently uses a pinned [highlight.js](modern/Resources/PROVENANCE.md)
+bundle. Legacy Highlight themes, flags, plugins and thumbnails are not carried
+forward. Reads are capped at 256 KiB and 6,000 lines; highlighting has tighter
+limits and falls back to plain text. A hard grammar-execution deadline remains a
+release gate. See [architecture and limitations](docs/DEVELOPMENT.md#architecture-and-limits).
 
-`Document types > Item 0 > Document Content Type UTIs`
+## Help keep a useful little project alive
 
-(If the editor is showing raw keys, that's: CFBundleDocumentTypes > Item 0 > LSItemContentTypes)
+A clear bug report, a small fixture, a macOS compatibility check, or a focused
+pull request all help. Start with [CONTRIBUTING.md](CONTRIBUTING.md). You don't need
+to tackle the whole revival to contribute something useful.
 
-4. Add an item for `public.php-script`, the type string found in the first step.
-5. Save the updated Info.plist file.
-6. Try it in Finder. (It's usually unnecessary to move/return the QLColorCode extension, restart QuickLook, or restart
-   the Finder, but it wouldn't be surprising that some users might need to do so.)
+For a security concern, use the [private reporting instructions](SECURITY.md).
+For the path toward Homebrew, see the [successor readiness notes](docs/SUCCESSOR.md).
+
+## History since 2007, preserved
+
+This fork continues [Nathaniel Gray's original QLColorCode](https://github.com/n8gray/QLColorCode),
+[Derzzle's build work](https://github.com/derzzle/QLColorCode), and
+[Anthony Gelibert's continuation](https://github.com/anthonygelibert/QLColorCode).
+Their Git history and contributor credits remain intact. The modern Swift work
+is maintained here by [Mason James](https://github.com/masonjames).
+
+Read the [historical review](docs/REVIVAL-REVIEW.md) or the
+[preserved legacy documentation](docs/LEGACY.md). Prism Q is our new identity;
+it does not imply endorsement by previous maintainers, Apple or Homebrew.
+
+## License
+
+[GNU GPL v3](COPYING); new Swift contributions are GPL-3.0-or-later. The original
+project used GPL v2 before the upstream license-file change in 2016. Existing
+copyright notices are retained. The bundled highlight.js library is BSD-3-Clause,
+and its [license](modern/Resources/highlight-LICENSE) ships with both app bundles.

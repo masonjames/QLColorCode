@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "repository": "masonjames/QLColorCode",
+  "tag": null,
+  "source_commit": "70e14898bf500133ab0da612230dfdd39081dfa0",
+  "working_tree_dirty": true,
+  "distribution_ready": false,
+  "source_snapshot_sha256": "9840158c51c55de16141e07c2f99f53f171f8707c910778cb7876e1c0cb97631",
+  "dagger_image": "python:3.14-slim-bookworm@sha256:c8137f4c460908c8763f281c8f22c431eb5c538514ba9553fc3a89c06b7cfb88",
+  "version": "5.0.0",
+  "build": "1",
+  "dmg": "QLColorCode-LOCAL-ONLY-70e14898-dirty-20261005T000422Z.dmg",
+  "sha256": "36b52c9648a103063f117943289eeff963ca6825fdd3a2daf6648eefad9e475e",
+  "architectures": [
+    "arm64",
+    "x86_64"
+  ],
+  "minimum_macos": "15.0",
+  "host_macos": "27.0.1",
+  "host_build": "26A434",
+  "host_architecture": "arm64",
+  "xcode": "Xcode 27.0\nBuild version 27A266a",
+  "dagger": "dagger v0.21.10 (image://registry.dagger.io/engine:v0.21.10) darwin/arm64/v8",
+  "checks": {
+    "dagger": [
+      "vendor hashes",
+      "release policy tests"
+    ],
+    "native_macos": [
+      "core",
+      "WebKit",
+      "universal bundle",
+      "DMG mount and contents"
+    ]
+  },
+  "notarization": {},
+  "created_utc": "2026-10-05T00:04:55.507142+00:00"
+}

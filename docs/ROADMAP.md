@@ -17,6 +17,8 @@ platform and accessibility matrix below remains a requirement for a stable relea
 - Bounded sandboxed XPC parsing, cancellation/recovery checks, and native/Rosetta tests.
 
 [Detailed evidence](REVIEW-EVIDENCE.md) records what each check actually covered.
+The [compatibility matrix and downloaded-beta checklist](COMPATIBILITY.md) let
+testers contribute without Xcode.
 
 ## Qualification roadmap
 

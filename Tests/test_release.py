@@ -73,6 +73,14 @@ class ReleaseTests(unittest.TestCase):
         self.assertIn('/releases/download/v#{version}/QLColorCode-#{version}.dmg', text)
         self.assertNotIn("postflight", text)
 
+    def test_stable_update_check_excludes_prereleases(self):
+        stable = release.cask("v5.0.0", "a" * 64)
+        beta = release.cask("v5.0.0-beta.1", "a" * 64)
+        self.assertIn('next if release["draft"] || release["prerelease"]', stable)
+        self.assertIn('next if release["draft"]\n', beta)
+        self.assertIn('strategy :github_releases', beta)
+        self.assertIn(r'regex(/^v(\d+\.\d+\.\d+)$/i)', stable)
+
     def test_cask_rejects_untrusted_checksum(self):
         with self.assertRaises(ValueError):
             release.cask("v5.0.0", '${shell}')

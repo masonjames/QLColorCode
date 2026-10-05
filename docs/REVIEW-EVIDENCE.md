@@ -444,3 +444,51 @@ the parent clarified Rosetta coverage, the first-tap upgrade limitation and the
 cask correction above. The 18 release-policy tests and local documentation links
 passed. Review covered the explicit packet, not independent access to runtime
 evidence or this follow-up receipt.
+
+## Local accessibility and dependency checks (October 5, 2026)
+
+The existing native WebKit suite now checks six CSS text palette variables
+against `--bg` at a minimum 4.5:1 contrast ratio, using the
+[WCAG relative-luminance calculation](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html).
+All **536 assertions** passed across 13 fixtures, both widths and both appearances
+on the same Apple Silicon host. The 52 new assertions repeat **12 distinct color
+pairs** (six per appearance). They ran natively, not under Rosetta, on the follow-up
+to `e1325c9`; `PreviewRenderer.swift` is unchanged from release tag `v5.0.0-beta.1`.
+This covers the renderer's declared unselected text palette,
+not a complete accessibility certification or the companion's native controls.
+Vendored checksums, local documentation links and diff checks also passed.
+
+The installed beta's Command-O file picker opened the public Palette fixture
+using keyboard navigation and showed actual Swift colors. Its accessibility tree
+exposed source text separately from the header and omitted generated gutter
+numbers. The parent inspected the screenshots and tree. Whole-document Command-A
+visibly selected the header as well as source; no clipboard roundtrip was performed.
+Keyboard focus traversal and VoiceOver remain unverified. A repeated Finder trial
+stopped before its first preview when the selected-file precondition changed;
+it adds no Finder qualification and does not replace the earlier controlled trial.
+No settings, clipboard contents or installed app files were changed.
+
+GitHub's public advisory query for `highlight.js@11.12.0` returned no matching
+advisories on October 5; upstream's latest release was also 11.12.0. This is a
+dated dependency check, not proof that no vulnerability exists. The published
+DMG and source tag remain unchanged. Stable readiness gates remain false.
+
+Homebrew `7.0.7-103-ga57af19` strict new-cask audit initially reported three
+problems: livecheck found legacy 4.1.0, the release is a prerelease, and GitHub
+marks the repository as a fork. The cask generator now checks published modern
+release tags, excluding drafts and, for a stable cask, prereleases. Homebrew style
+passed and livecheck returned **5.0.0-beta.1 → 5.0.0-beta.1**. Synthetic Ruby
+evaluation of the emitted blocks rejected legacy tags and drafts and kept beta
+and stable channels separate. Local Dagger passed vendored hashes and all **19
+release-policy tests**. The correction changes no DMG, checksum or installed app.
+The strict audit rerun reported only the prerelease and non-canonical-fork errors;
+it still **fails**. Notability and repository age were not cleared by that result.
+
+Tool-disabled Claude CLI reviews used **`claude-opus-5-5`**, with packet hashes
+`9eea9b9dcfd6caad0a5415e0311e16c096c613d43bb1708d066bd214fae20015`
+and `be9f3af5e587ab884b41c47961e119020485bb87a91a70b1070a206a85fdff14`.
+The final review found no generator, cask or test correctness blocker. The parent
+resolved documentation questions against the actual policy/API/UI receipts,
+clarified the outreach approval gate and contrast scope, and tightened stable
+tag matching so a mislabelled beta cannot enter its update check. Reviewers saw
+only explicit packets; they did not independently run tests or observe the Mac.

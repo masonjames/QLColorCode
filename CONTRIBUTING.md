@@ -1,14 +1,14 @@
 # Contributing to QLColorCode
 
 Thanks for helping keep source previews useful on modern macOS. Small, well-tested
-changes are welcome. The project is a development preview; a build target or a
+changes are welcome. The project has a public beta; a build target or a
 screenshot is not proof of release compatibility.
 
 ## Find a useful first contribution
 
 | Contribution | What makes it useful |
 | --- | --- |
-| Test on Sequoia, Tahoe or Intel | Record the OS/build, chip, source revision, signing setup and actual companion/Finder result |
+| Test on Sequoia, Tahoe or Intel | Follow the [downloaded-beta checklist](docs/COMPATIBILITY.md); no Xcode required |
 | Report a file-type conflict | Include the extension and `mdls` content type, plus a tiny public or synthetic sample |
 | Add a language fixture | Show the bug before the change and the expected source/selection behavior afterward |
 | Check accessibility | Describe keyboard or VoiceOver steps and the exact observed behavior |

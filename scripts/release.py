@@ -62,6 +62,7 @@ def cask(tag, digest):
     tag_version(tag)
     if not re.fullmatch(r"[0-9a-f]{64}", digest):
         raise ValueError("Invalid DMG SHA256")
+    suffix = r"(?:-(?:alpha|beta|rc)\.\d+)?" if "-" in tag else ""
     return f'''cask "masonjames-qlcolorcode" do
   version "{tag[1:]}"
   sha256 "{digest}"
@@ -70,6 +71,18 @@ def cask(tag, digest):
   name "QLColorCode"
   desc "Syntax-colored Quick Look previews for source code"
   homepage "https://github.com/{REPOSITORY}"
+
+  livecheck do
+    url :url
+    regex(/^v(\\d+\\.\\d+\\.\\d+{suffix})$/i)
+    strategy :github_releases do |json, regex|
+      json.filter_map do |release|
+        next if release["draft"]{'' if '-' in tag else ' || release["prerelease"]'}
+
+        release["tag_name"]&.[](regex, 1)
+      end
+    end
+  end
 
   depends_on macos: :sequoia
 

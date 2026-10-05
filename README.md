@@ -101,7 +101,8 @@ limits and a one-second parser budget, then falls back to plain text. See [archi
 ## Help keep a useful little project alive
 
 A clear bug report, a small fixture, a macOS compatibility check, or a focused
-pull request all help. Start with [CONTRIBUTING.md](CONTRIBUTING.md). You don't need
+pull request all help. [Test the downloaded beta](docs/COMPATIBILITY.md) without
+installing Xcode, or start with [CONTRIBUTING.md](CONTRIBUTING.md). You don't need
 to tackle the whole revival to contribute something useful.
 
 For a security concern, use the [private reporting instructions](SECURITY.md).

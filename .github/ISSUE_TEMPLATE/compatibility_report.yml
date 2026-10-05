@@ -1,5 +1,5 @@
 name: Compatibility report
-description: Contribute actual macOS, architecture or file-type test results.
+description: Test the downloaded beta or a source build on your Mac. No Xcode needed for beta reports.
 title: "[Compatibility] "
 body:
   - type: input
@@ -12,15 +12,15 @@ body:
   - type: input
     id: revision
     attributes:
-      label: Source commit, Xcode and signing setup
-      description: Do not include certificate serials, private paths or credentials.
+      label: Release version and installation method, or source build
+      description: For downloads, give the release tag, app build and DMG or Homebrew. For source builds, give the commit, Xcode and signing setup. No private paths or credentials.
     validations:
       required: true
   - type: textarea
     id: results
     attributes:
       label: What did you actually test?
-      description: Separate build/test results, companion rendering, and Finder invocation. Include file extensions, wrapping, selection, light/dark appearance and failures. An untested item is not a pass.
+      description: Follow docs/COMPATIBILITY.md. Separate companion rendering, Finder invocation, keyboard/VoiceOver and installation results. Name file extensions and failures. Mark each untested item as not tested.
     validations:
       required: true
   - type: textarea

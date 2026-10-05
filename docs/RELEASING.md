@@ -105,6 +105,9 @@ then computes the final DMG hash. A rejection or notary issue stops preparation.
 Qualified output includes `masonjames-qlcolorcode.rb`, generated from the exact
 tag and final DMG checksum. The image contains the app, an Applications shortcut,
 a license and a short installation note. There are no installer/postflight scripts.
+The cask's update check uses published modern release tags, excluding legacy
+`release-4.x` tags and drafts. A prerelease cask also sees published prereleases;
+the generated stable cask excludes them. This is separate from release eligibility.
 
 ## Create and verify a draft
 

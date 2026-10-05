@@ -32,7 +32,7 @@ private final class LayoutTests: NSObject, WKNavigationDelegate {
 
     func next() {
         guard index < fixtures.count * 4 else {
-            print("PASS: \(checks) WebKit layout/selection assertions; \(fixtures.count) fixtures at 320/960px in light/dark appearance")
+            print("PASS: \(checks) WebKit layout/selection/contrast assertions; \(fixtures.count) fixtures at 320/960px in light/dark appearance")
             NSApplication.shared.terminate(nil)
             return
         }
@@ -64,6 +64,19 @@ private final class LayoutTests: NSObject, WKNavigationDelegate {
             offset += node.length;
           }
           selection.removeAllRanges(); selection.addRange(partial);
+          const palette = getComputedStyle(document.documentElement);
+          const luminance = name => {
+            const hex = palette.getPropertyValue(name).trim().slice(1);
+            const full = hex.length === 3 ? [...hex].map(c => c + c).join('') : hex;
+            const rgb = full.match(/../g).map(c => parseInt(c, 16) / 255)
+              .map(c => c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+            return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
+          };
+          const bg = luminance('--bg');
+          const contrast = ['--fg', '--muted', '--keyword', '--string', '--number', '--title'].every(name => {
+            const fg = luminance(name);
+            return (Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05) >= 4.5;
+          });
           return {
             text: code.textContent, range: range.toString(), selection: allSelected,
             partial: selection.toString(), expectedPartial: code.textContent.slice(start, end),
@@ -74,7 +87,7 @@ private final class LayoutTests: NSObject, WKNavigationDelegate {
             wrapped: rectangles.some(rect => rect.height > 25),
             continuedComment: !!lines[1]?.querySelector('.hljs-comment'),
             tokens: !!code.querySelector('.line [class^="hljs-"]'),
-            background: getComputedStyle(document.body).backgroundColor,
+            background: getComputedStyle(document.body).backgroundColor, contrast,
             label: document.querySelector('header').textContent
           };
         })()
@@ -92,6 +105,7 @@ private final class LayoutTests: NSObject, WKNavigationDelegate {
             check(values["aligned"] as? Bool == true, "Gutter follows logical lines", name)
             let expectedBackground = index / fixtures.count < 2 ? "rgb(255, 255, 255)" : "rgb(13, 17, 23)"
             check(values["background"] as? String == expectedBackground, "Requested appearance renders", name)
+            check(values["contrast"] as? Bool == true, "Text palette meets 4.5:1 contrast", name)
             if SourceDocument.language(for: name) != nil && name != "truncated.py" {
                 check((values["label"] as? String)?.contains("Syntax highlighting unavailable") == false, "No silent highlighting fallback", name)
             }

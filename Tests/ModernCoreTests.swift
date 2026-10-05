@@ -9,7 +9,7 @@ struct ModernCoreTests {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("qlcolorcode-tests-\(UUID())")
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: root) }
-        let renderer = PreviewRenderer(helper: URL(fileURLWithPath: "build/tests/Parser/Contents/Helpers/QLColorCodeHighlight"))
+        let renderer = PreviewRenderer(highlighter: IsolatedHighlighter(serviceName: "org.masonjames.QLColorCode.Tests.Highlight").highlight)
         var checks = 0
         func expect(_ condition: @autoclosure () throws -> Bool, _ label: String) throws {
             guard try condition() else { throw NSError(domain: "ModernCoreTests", code: 1, userInfo: [NSLocalizedDescriptionKey: label]) }
@@ -105,7 +105,7 @@ struct ModernCoreTests {
         try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: executable.path)
         _ = renderer.render(try SourceDocument.read(executable))
         try expect(!FileManager.default.fileExists(atPath: root.appendingPathComponent("executed").path), "Source never executes")
-        let plain = PreviewRenderer(helper: nil).render(source)
+        let plain = PreviewRenderer { _, _, _ in nil }.render(source)
         try expect(plain.contains("Plain text") && plain.contains("Hello 👋"), "Missing parser falls back")
         try expect(PreviewRenderer.escape("<\u{0338}script>&\u{0338}") == "&lt;\u{0338}script&gt;&amp;\u{0338}", "Literal escaping beside combining marks")
         let nestedMarkup = "<span class=\"hljs-title function_\">first<span class=\"hljs-string\">\nsecond</span></span>"

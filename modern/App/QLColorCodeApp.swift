@@ -98,7 +98,7 @@ private struct ContentView: View {
         previewTask?.cancel()
         previewTask = Task {
             do {
-                let rendered = try await PreviewRenderer.preview(url, bundle: .main)
+                let rendered = try await PreviewRenderer.preview(url)
                 html = rendered
                 fileName = url.lastPathComponent
             } catch is CancellationError {

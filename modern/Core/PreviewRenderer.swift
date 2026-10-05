@@ -7,21 +7,15 @@ struct PreviewRenderer {
     static let highlightByteLimit = 32 * 1024
     let highlighter: (String, String, () -> Bool) -> String?
 
-    init(bundle: Bundle) {
-        let extensionURL = bundle.bundleURL.pathExtension == "appex" ? bundle.bundleURL
-            : bundle.bundleURL.appendingPathComponent("Contents/PlugIns/QLColorCodePreview.appex")
-        self.init(helper: extensionURL.appendingPathComponent("Contents/Helpers/QLColorCodeHighlight"))
-    }
-
-    init(helper: URL?) { highlighter = IsolatedHighlighter(executable: helper).highlight }
+    init() { highlighter = IsolatedHighlighter().highlight }
     init(highlighter: @escaping (String, String, () -> Bool) -> String?) { self.highlighter = highlighter }
 
-    static func preview(_ url: URL, bundle: Bundle) async throws -> String {
+    static func preview(_ url: URL) async throws -> String {
         let worker = Task.detached(priority: .userInitiated) {
             try Task.checkCancellation()
             let access = url.startAccessingSecurityScopedResource()
             defer { if access { url.stopAccessingSecurityScopedResource() } }
-            let html = PreviewRenderer(bundle: bundle).render(try SourceDocument.read(url))
+            let html = PreviewRenderer().render(try SourceDocument.read(url))
             try Task.checkCancellation()
             return html
         }

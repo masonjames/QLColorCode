@@ -15,8 +15,8 @@
   },
   "beta": {
     "parser_deadline": {
-      "passed": false,
-      "evidence": "Killable parsing, cancellation, orphan exit and recovery tests remain open."
+      "passed": true,
+      "evidence": "October 4 XPC correction: 16 real sandboxed-service checks plus live-service orphan termination passed as arm64 and x86_64 under Rosetta. Includes caller deadline, service alarm, alarm disarming, cancellation, bounded contention, result bounds and recovery. Developer ID candidate bundle checks passed. See docs/REVIEW-EVIDENCE.md; final tagged pipeline rerun remains mandatory."
     },
     "local_runtime_and_install": {
       "passed": false,

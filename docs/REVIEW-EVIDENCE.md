@@ -286,12 +286,12 @@ notarization, fresh-download Gatekeeper trial or broader runtime compatibility i
 claimed. The next release work is parser cancellation/deadline, platform and
 accessibility/install qualification, and an authenticated notarization trial.
 
-## First beta parser boundary (October 4, 2026)
+## First beta subprocess attempt (October 4, 2026)
 
-The parser now runs in a stoppable executable, embedded once in the preview
-extension and used by both surfaces. Parent timeout/cancellation kills and reaps
-the child; a separate alarm exits an orphan. The helper inherits its parent's
-sandbox. This is hang/crash containment, not a tighter privilege boundary.
+The initial attempt used a stoppable executable with inherited sandbox. It passed
+companion and CLI checks, but **failed the installed Finder trial**: Quick Look
+rejected direct child-process creation. This implementation is superseded by the
+XPC correction below and is not release qualification.
 
 Tool-disabled Anthropic review used **claude-opus-5-5** for the plan and explicit
 implementation packet. No account data, credentials or private files were supplied.
@@ -315,3 +315,51 @@ secure timestamps and exactly sandbox/inherit entitlements on its helper. The
 first 11 parser checks, core and orphan test also passed as x86_64 under Rosetta;
 that is not Intel hardware qualification. Final install and release evidence will
 be recorded separately. macOS 15/26, Intel hardware and VoiceOver remain unverified.
+
+## XPC correction and current qualification
+
+Actual Finder testing caught a platform restriction missed by the subprocess plan.
+Apple DTS describes this restriction in the
+[Swift Forums discussion](https://forums.swift.org/t/running-a-script-from-within-swift-app-qlextension/70226).
+The correction uses a native embedded XPC service, the same mechanism used by
+[SourceCodeSyntaxHighlight](https://github.com/sbarex/SourceCodeSyntaxHighlight).
+It has only the App Sandbox entitlement, no inherited user-file/network grants.
+The pipe/spawn implementation and its descriptor probes were removed.
+
+The corrected service initializes JavaScriptCore on its main thread. CLI hosts
+using real sandboxed, hardened XPC services pass the 72 core assertions and
+16 XPC boundary checks,
+including timeout, cancellation, exception, bounds, contention, alarm disarming
+and recovery. A separate test
+asserts the service is alive before killing its host, then verifies termination.
+The recovery test allows launchd's restart delay; individual previews still stop
+waiting after one second. Ad hoc test services use their own bundle identifiers.
+
+The final XPC implementation passed the same core, 16 parser, orphan-termination
+and 484 WebKit checks as both arm64 and x86_64 under Rosetta on macOS 27.0.1.
+Rosetta is not physical Intel qualification. The Developer ID-signed universal
+candidate passed both embedded service identifiers, pinned resources, macOS 15.0
+deployment targets, exact sandbox entitlements, hardened runtime, secure timestamp
+and expected-team checks. Local Dagger passed all 18 release-policy tests and
+vendor hashes; the full local-only DMG rehearsal passed before the final bounded
+lock and service-identifier assertion were added. The qualified release pipeline
+must rerun those checks against its final source tag.
+
+Three tool-disabled reviews used `claude-opus-5-5`; only public source and sanitized
+test outcomes were included:
+
+| Review | Packet SHA256 | Coverage |
+| --- | --- | --- |
+| XPC plan | `350b1c3732c58333757743738527d3333c6ecff140cfadd41acead6a65aa49bf` | Native service boundary, sandbox and runtime proof |
+| XPC implementation | `248972e04345c25e4ce1eee2870e676ba144fea0dbc8441e4731d2b774da9588` | Client, service, packaging, tests and release verification |
+| XPC final addendum | `3996c7dda74df9b46cfd7d77bff806f97fe30dbe4936176ab5800814cb5a95e4` | Bounded contention, alarm disarming, architecture test target and service identifier assertion |
+
+The final review found no code blocker in its four-file packet. Its requested
+current-code Rosetta rerun and real Developer ID signature checks subsequently
+passed. Finder, rollback and notarized-artifact checks remain separate gates.
+
+A signed disposable host and the installed companion returned/displayed actual
+colored Swift. The installed Finder check is **still unresolved**: blank/disappearing
+previews were observed, and concurrent Finder use contaminated a later diagnostic.
+No installed Finder pass or public release is claimed until an undisturbed trial
+and final artifact checks are recorded.

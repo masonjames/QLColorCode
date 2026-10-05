@@ -7,33 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00CF6A0B305BBD5A7DA85FAF /* HighlightRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B04EB564F9C925C35370A1 /* HighlightRequest.swift */; };
 		04851F660E7E7395D9CB8543 /* IsolatedHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B3708929130CBCB05C8DE /* IsolatedHighlighter.swift */; };
 		059BC7C648715AC1166542CB /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = A7C09410548B4F402C8440C5 /* COPYING */; };
+		0611044392E20C7F27132BF0 /* HighlighterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B84AF70FCE95B39D225381F /* HighlighterProtocol.swift */; };
+		07DC7B8DAC88E3A95E087390 /* highlight-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D5456153B66F32150E6CB2FF /* highlight-LICENSE */; };
 		0A9D214822A43FF85D0543AF /* PreviewWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB5C758B9E114F0C105DFC7 /* PreviewWebView.swift */; };
-		0F2E8B63B0F4B6CA5E8F87BD /* highlight-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D5456153B66F32150E6CB2FF /* highlight-LICENSE */; };
-		10363F701B488FFCE1EF4987 /* HighlightRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B04EB564F9C925C35370A1 /* HighlightRequest.swift */; };
 		1706976E41100C45924C3F3A /* PreviewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84854FA54FECC92E3206ED /* PreviewRenderer.swift */; };
 		23148ECE79D8BB755818364D /* SourceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E1BB528483F5DAD36C9AD1 /* SourceDocument.swift */; };
-		39B216B575D2F0E6625C317D /* QLColorCodeHighlight in Embed Dependencies */ = {isa = PBXBuildFile; fileRef = 730CE8ED98F8F3FD7830B35B /* QLColorCodeHighlight */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2343CBD3488D2C1E48233237 /* QLColorCodeHighlight.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA090BAF6EDCADA55AD137AD /* QLColorCodeHighlight.xpc */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		50EB4FE6073ACB93EAE2535E /* QLColorCodePreview.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 574392D55CC7E78E8113DD5C /* QLColorCodePreview.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		552DA29B74CB90000C61AEE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2843D360651F9BE77D189197 /* Assets.xcassets */; };
-		5F2234534B9AA852C75FF195 /* PROVENANCE.md in Resources */ = {isa = PBXBuildFile; fileRef = D3CBABAB8671F2748460CFC4 /* PROVENANCE.md */; };
 		6347293548530452548E8926 /* PreviewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84854FA54FECC92E3206ED /* PreviewRenderer.swift */; };
-		6392C406F4AC614D7B4616E9 /* highlight.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 19C167C5389B1E35A3ED239E /* highlight.min.js */; };
+		683F3B3B60940328CA3E133F /* highlight.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 19C167C5389B1E35A3ED239E /* highlight.min.js */; };
 		6A4FF8871CDE6AC7F3B06C81 /* SourceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E1BB528483F5DAD36C9AD1 /* SourceDocument.swift */; };
 		8013D35BD5F83433B945BA8E /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = A7C09410548B4F402C8440C5 /* COPYING */; };
-		80F29C40F848EC8735BD4C3F /* HighlightRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B04EB564F9C925C35370A1 /* HighlightRequest.swift */; };
 		967F85CE7E9414993168587D /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28F116833E4AC8EF601DF28 /* PreviewProvider.swift */; };
 		AC64C1D834268EA3F0E705AF /* IsolatedHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B3708929130CBCB05C8DE /* IsolatedHighlighter.swift */; };
+		AF2E9B468075F830D64F5117 /* HighlighterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B84AF70FCE95B39D225381F /* HighlighterProtocol.swift */; };
+		B21D684BF76C3E804750F1F0 /* HighlighterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B84AF70FCE95B39D225381F /* HighlighterProtocol.swift */; };
 		B3D328C132C0CB559A22CB1B /* QLColorCodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F630C0BE559A7C24D96B14A /* QLColorCodeApp.swift */; };
-		B477E8FD63B752B9CD6E7A4E /* PROVENANCE.md in Resources */ = {isa = PBXBuildFile; fileRef = D3CBABAB8671F2748460CFC4 /* PROVENANCE.md */; };
-		BC0EA791CE75291979B3E218 /* highlight-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D5456153B66F32150E6CB2FF /* highlight-LICENSE */; };
+		BD1FC4B863823E86553D4D61 /* QLColorCodeHighlight.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = AA090BAF6EDCADA55AD137AD /* QLColorCodeHighlight.xpc */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DAB6C727B1C6BD300BD1B013 /* PROVENANCE.md in Resources */ = {isa = PBXBuildFile; fileRef = D3CBABAB8671F2748460CFC4 /* PROVENANCE.md */; };
 		F6405770C3615E32F7CDF660 /* HighlighterMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4CE8B16CD19C93B66768A1 /* HighlighterMain.swift */; };
-		FBEF9804ACF0D855894E14A0 /* highlight.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 19C167C5389B1E35A3ED239E /* highlight.min.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		32B00858275DA2E6511BE2AC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 23D26C7456AED2EC79AC60F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91143D35983F25F3BF2E34FA;
+			remoteInfo = QLColorCodeHighlight;
+		};
 		ABC498005FD1ABCC7519A7FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 23D26C7456AED2EC79AC60F3 /* Project object */;
@@ -51,15 +56,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		8FFAAA319F3CFE837E958312 /* Embed Dependencies */ = {
+		89C9A0735A6F1F15277D6D5D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Contents/Helpers;
-			dstSubfolderSpec = 1;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
 			files = (
-				39B216B575D2F0E6625C317D /* QLColorCodeHighlight in Embed Dependencies */,
+				2343CBD3488D2C1E48233237 /* QLColorCodeHighlight.xpc in CopyFiles */,
 			);
-			name = "Embed Dependencies";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAD454ECE2B126491240902D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				BD1FC4B863823E86553D4D61 /* QLColorCodeHighlight.xpc in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		EBBA747E8BE7B3656691E0A3 /* Embed Foundation Extensions */ = {
@@ -76,18 +90,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		19B04EB564F9C925C35370A1 /* HighlightRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightRequest.swift; sourceTree = "<group>"; };
 		19C167C5389B1E35A3ED239E /* highlight.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = highlight.min.js; sourceTree = "<group>"; };
+		1B84AF70FCE95B39D225381F /* HighlighterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlighterProtocol.swift; sourceTree = "<group>"; };
 		1D84854FA54FECC92E3206ED /* PreviewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewRenderer.swift; sourceTree = "<group>"; };
 		2843D360651F9BE77D189197 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54A59FCA71BD946D38F86A5C /* QLColorCodeHighlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QLColorCodeHighlight.entitlements; sourceTree = "<group>"; };
 		574392D55CC7E78E8113DD5C /* QLColorCodePreview.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QLColorCodePreview.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F630C0BE559A7C24D96B14A /* QLColorCodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLColorCodeApp.swift; sourceTree = "<group>"; };
-		730CE8ED98F8F3FD7830B35B /* QLColorCodeHighlight */ = {isa = PBXFileReference; includeInIndex = 0; path = QLColorCodeHighlight; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4B3708929130CBCB05C8DE /* IsolatedHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsolatedHighlighter.swift; sourceTree = "<group>"; };
+		8AD8F5A55D7708D56F49CBA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		90737B0406FF0CD091E4E831 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		932F00E658F27E2949771DBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A7C09410548B4F402C8440C5 /* COPYING */ = {isa = PBXFileReference; path = COPYING; sourceTree = "<group>"; };
+		AA090BAF6EDCADA55AD137AD /* QLColorCodeHighlight.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = QLColorCodeHighlight.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E1BB528483F5DAD36C9AD1 /* SourceDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceDocument.swift; sourceTree = "<group>"; };
 		CF47AA75880E794A7AC2F78D /* QLColorCodePreview.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QLColorCodePreview.entitlements; sourceTree = "<group>"; };
 		D28F116833E4AC8EF601DF28 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
@@ -104,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				D870862DC603890A28796E21 /* QLColorCode.app */,
-				730CE8ED98F8F3FD7830B35B /* QLColorCodeHighlight */,
+				AA090BAF6EDCADA55AD137AD /* QLColorCodeHighlight.xpc */,
 				574392D55CC7E78E8113DD5C /* QLColorCodePreview.appex */,
 			);
 			name = Products;
@@ -123,7 +138,7 @@
 		43AF6E0DC739C28CC30C4918 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				19B04EB564F9C925C35370A1 /* HighlightRequest.swift */,
+				1B84AF70FCE95B39D225381F /* HighlighterProtocol.swift */,
 				7A4B3708929130CBCB05C8DE /* IsolatedHighlighter.swift */,
 				1D84854FA54FECC92E3206ED /* PreviewRenderer.swift */,
 				C3E1BB528483F5DAD36C9AD1 /* SourceDocument.swift */,
@@ -166,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				FC4CE8B16CD19C93B66768A1 /* HighlighterMain.swift */,
+				8AD8F5A55D7708D56F49CBA5 /* Info.plist */,
 				54A59FCA71BD946D38F86A5C /* QLColorCodeHighlight.entitlements */,
 			);
 			path = Highlighter;
@@ -193,7 +209,7 @@
 			buildPhases = (
 				BAC173BF335A2017BF8B6E98 /* Sources */,
 				01FCC85F833A8F93D4A0D19E /* Resources */,
-				8FFAAA319F3CFE837E958312 /* Embed Dependencies */,
+				DAD454ECE2B126491240902D /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -213,12 +229,14 @@
 			buildPhases = (
 				68B63A7C563E9BFF7B515E3E /* Sources */,
 				C44933FFBE2D4F92AAEF9747 /* Resources */,
+				89C9A0735A6F1F15277D6D5D /* CopyFiles */,
 				EBBA747E8BE7B3656691E0A3 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				DE8B55AC2C61146B790E2B0B /* PBXTargetDependency */,
+				FE87AED58A3DF846975EC576 /* PBXTargetDependency */,
 			);
 			name = QLColorCode;
 			packageProductDependencies = (
@@ -232,6 +250,7 @@
 			buildConfigurationList = AA368A2DCE55C402A33A5F50 /* Build configuration list for PBXNativeTarget "QLColorCodeHighlight" */;
 			buildPhases = (
 				C352F9947D19A96C4B0B8965 /* Sources */,
+				B10CA2067D7AE80E67965998 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -241,8 +260,8 @@
 			packageProductDependencies = (
 			);
 			productName = QLColorCodeHighlight;
-			productReference = 730CE8ED98F8F3FD7830B35B /* QLColorCodeHighlight */;
-			productType = "com.apple.product-type.tool";
+			productReference = AA090BAF6EDCADA55AD137AD /* QLColorCodeHighlight.xpc */;
+			productType = "com.apple.product-type.xpc-service";
 		};
 /* End PBXNativeTarget section */
 
@@ -291,9 +310,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				8013D35BD5F83433B945BA8E /* COPYING in Resources */,
-				5F2234534B9AA852C75FF195 /* PROVENANCE.md in Resources */,
-				BC0EA791CE75291979B3E218 /* highlight-LICENSE in Resources */,
-				6392C406F4AC614D7B4616E9 /* highlight.min.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B10CA2067D7AE80E67965998 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAB6C727B1C6BD300BD1B013 /* PROVENANCE.md in Resources */,
+				07DC7B8DAC88E3A95E087390 /* highlight-LICENSE in Resources */,
+				683F3B3B60940328CA3E133F /* highlight.min.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,9 +329,6 @@
 			files = (
 				552DA29B74CB90000C61AEE6 /* Assets.xcassets in Resources */,
 				059BC7C648715AC1166542CB /* COPYING in Resources */,
-				B477E8FD63B752B9CD6E7A4E /* PROVENANCE.md in Resources */,
-				0F2E8B63B0F4B6CA5E8F87BD /* highlight-LICENSE in Resources */,
-				FBEF9804ACF0D855894E14A0 /* highlight.min.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80F29C40F848EC8735BD4C3F /* HighlightRequest.swift in Sources */,
+				0611044392E20C7F27132BF0 /* HighlighterProtocol.swift in Sources */,
 				AC64C1D834268EA3F0E705AF /* IsolatedHighlighter.swift in Sources */,
 				1706976E41100C45924C3F3A /* PreviewRenderer.swift in Sources */,
 				0A9D214822A43FF85D0543AF /* PreviewWebView.swift in Sources */,
@@ -329,7 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00CF6A0B305BBD5A7DA85FAF /* HighlightRequest.swift in Sources */,
+				B21D684BF76C3E804750F1F0 /* HighlighterProtocol.swift in Sources */,
 				04851F660E7E7395D9CB8543 /* IsolatedHighlighter.swift in Sources */,
 				967F85CE7E9414993168587D /* PreviewProvider.swift in Sources */,
 				6347293548530452548E8926 /* PreviewRenderer.swift in Sources */,
@@ -341,8 +364,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10363F701B488FFCE1EF4987 /* HighlightRequest.swift in Sources */,
 				F6405770C3615E32F7CDF660 /* HighlighterMain.swift in Sources */,
+				AF2E9B468075F830D64F5117 /* HighlighterProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +381,11 @@
 			isa = PBXTargetDependency;
 			target = 0DB042243687BCC0F8F85FEC /* QLColorCodePreview */;
 			targetProxy = D504B0A41A29F15AA097F64A /* PBXContainerItemProxy */;
+		};
+		FE87AED58A3DF846975EC576 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91143D35983F25F3BF2E34FA /* QLColorCodeHighlight */;
+			targetProxy = 32B00858275DA2E6511BE2AC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -416,7 +444,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -506,7 +534,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -559,6 +587,7 @@
 				CODE_SIGN_ENTITLEMENTS = Highlighter/QLColorCodeHighlight.entitlements;
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Highlighter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -575,6 +604,7 @@
 				CODE_SIGN_ENTITLEMENTS = Highlighter/QLColorCodeHighlight.entitlements;
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Highlighter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

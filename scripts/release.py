@@ -130,7 +130,8 @@ def signed_release(path, *, app=False):
     run("codesign", "--verify", "--strict", "--deep", str(path))
     if app:
         for bundle in (path, path / "Contents/PlugIns/QLColorCodePreview.appex",
-                       path / "Contents/PlugIns/QLColorCodePreview.appex/Contents/Helpers/QLColorCodeHighlight"):
+                       path / "Contents/XPCServices/QLColorCodeHighlight.xpc",
+                       path / "Contents/PlugIns/QLColorCodePreview.appex/Contents/XPCServices/QLColorCodeHighlight.xpc"):
             details = run("codesign", "-dv", "--verbose=4", str(bundle), merged=True)
             if f"TeamIdentifier={TEAM}" not in details or "Authority=Developer ID Application:" not in details or "Timestamp=" not in details or "(runtime)" not in details:
                 raise ValueError("All executables need the expected team, secure timestamp and hardened runtime.")

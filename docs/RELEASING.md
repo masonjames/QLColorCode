@@ -4,13 +4,26 @@ Every public release should offer one **free, universal DMG**, attached to its
 GitHub release. A maintainer-owned Homebrew tap will download those same bytes.
 There is no separate brew build, account requirement for downloads, or paid tier.
 
-**Current status:** the pipeline can rehearse packaging locally. There is no
-notarized public download or live tap package yet. The parser deadline, declared
-platforms and accessibility/install qualification in
-[release-readiness.json](release-readiness.json) block `prepare` and `draft`.
-Maintainers must review the evidence before changing these gates. The script
-checks explicit pass flags and nonempty evidence, but cannot judge that evidence
-or establish hardware compatibility itself.
+## Beta and stable qualification
+
+A beta can gather compatibility reports before the complete support matrix is
+qualified. It must first pass parser deadline/cancellation/recovery checks and a
+signed local app/Finder install, upgrade and rollback trial with real highlighting.
+Notarization, stapling, Gatekeeper, checksums and download verification are required
+for every distributed build, including betas. Failed parsing must fall back safely;
+a preview that is always plain text does not count as successful highlighting.
+
+[release-readiness.json](release-readiness.json) keeps separate beta and stable
+evidence. Stable additionally requires the declared macOS/hardware matrix and
+accessibility qualification. Unobserved gates stay false. The script selects gates
+from the tag: beta evidence cannot authorize a stable version. All prereleases are
+marked as such on GitHub and are never marked latest. Notes and the README must
+state exactly which platforms were tested and which remain unverified. A deployment
+target or universal binary alone proves no runtime compatibility.
+
+Maintainers review evidence before changing gates; nonempty text is not proof.
+This policy was reviewed before the first beta implementation. It enables a clearly
+labelled test release, not stable support or Homebrew successor acceptance.
 
 ## Where work runs
 
@@ -64,7 +77,7 @@ upload command. Keep them local; they are not downloadable betas.
 
 ## Prepare a qualified version
 
-Complete and review the readiness gates first. Update the app version/build in
+Complete and review the readiness gates for the intended channel first. Update the app version/build in
 `modern/project.yml`, regenerate the checked-in project, and use a build number
 above the earlier installed development build `1`. Increase the build number for
 every beta, release candidate and final release. Commit the complete change,
@@ -120,6 +133,8 @@ The GitHub release tag provides the corresponding GPL source archive. Never uplo
 ## Publish, then update the tap
 
 1. Review the draft, its source tag, attached evidence, free download and notes.
+   Download the draft DMG and verify installed app/Finder highlighting from that
+   exact notarized artifact before publishing; an earlier signed trial is insufficient.
    Publish it explicitly in GitHub or with `gh release edit TAG --draft=false`.
    Keep beta/rc releases marked as prereleases.
 2. Download the published DMG from its public version URL without authentication.

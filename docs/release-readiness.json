@@ -1,14 +1,26 @@
 {
-  "parser_deadline": {
-    "passed": false,
-    "evidence": "A hard execution deadline and cancellation remain open; see docs/ROADMAP.md."
+  "stable": {
+    "parser_deadline": {
+      "passed": true,
+      "evidence": "Reviewed XPC parser deadlines, cancellation, orphan termination and recovery passed native/Rosetta tests; signed installed Finder near-limit highlighting and safe fallback passed on October 4, 2026. See docs/REVIEW-EVIDENCE.md."
+    },
+    "platform_qualification": {
+      "passed": false,
+      "evidence": "Only local macOS 27.0.1 Apple Silicon runtime evidence exists. Sequoia, Tahoe and Intel need qualification."
+    },
+    "accessibility_and_install": {
+      "passed": false,
+      "evidence": "VoiceOver, release install, upgrade and rollback remain open; the earlier installed development trial is preserved."
+    }
   },
-  "platform_qualification": {
-    "passed": false,
-    "evidence": "Only local macOS 27.0.1 Apple Silicon runtime evidence exists. Sequoia, Tahoe and Intel need qualification."
-  },
-  "accessibility_and_install": {
-    "passed": false,
-    "evidence": "VoiceOver, release install, upgrade and rollback remain open; the earlier installed development trial is preserved."
+  "beta": {
+    "parser_deadline": {
+      "passed": true,
+      "evidence": "October 4 XPC correction: 16 real sandboxed-service checks plus live-service orphan termination passed as arm64 and x86_64 under Rosetta. Includes caller deadline, service alarm, alarm disarming, cancellation, bounded contention, result bounds and recovery. Developer ID candidate bundle checks passed. See docs/REVIEW-EVIDENCE.md; final tagged pipeline rerun remains mandatory."
+    },
+    "local_runtime_and_install": {
+      "passed": true,
+      "evidence": "Source 7ba8f302640bed351680d3e01fecdedddd070258: Developer ID universal build3 installed with matching file hashes. Coordinated Finder Palette and 32430-byte/1410-line Swift previews showed genuine colors; oversized input remained readable and normal highlighting recovered. Original signed build1 restored byte-for-byte and Finder colors verified, then tested build3 restored. Legacy generator unchanged. See docs/REVIEW-EVIDENCE.md. Final notarized draft artifact trial remains mandatory before publication."
+    }
   }
 }

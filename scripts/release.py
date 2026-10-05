@@ -19,6 +19,7 @@ DAGGER_VERSION = "v0.21.10"
 DAGGER_IMAGE = "python:3.14-slim-bookworm@sha256:c8137f4c460908c8763f281c8f22c431eb5c538514ba9553fc3a89c06b7cfb88"
 TEAM = "J5K2J3K4H7"
 GATES = {"parser_deadline", "platform_qualification", "accessibility_and_install"}
+BETA_GATES = {"parser_deadline", "local_runtime_and_install"}
 LSREGISTER = "/System/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/LaunchServices.framework/Versions/Current/Support/lsregister"
 
 
@@ -46,8 +47,14 @@ def tag_version(tag):
     return match[1]
 
 
-def require_ready(gates):
-    if set(gates) != GATES or any(gate.get("passed") is not True or not gate.get("evidence", "").strip() for gate in gates.values()):
+def require_ready(readiness, tag):
+    tag_version(tag)
+    if set(readiness) != {"stable", "beta"}:
+        raise ValueError("Readiness must keep separate stable and beta evidence.")
+    prerelease = "-" in tag
+    gates = readiness["beta" if prerelease else "stable"]
+    required = BETA_GATES if prerelease else GATES
+    if set(gates) != required or any(gate.get("passed") is not True or not gate.get("evidence", "").strip() for gate in gates.values()):
         raise ValueError("Public release blocked: complete docs/release-readiness.json with reviewed evidence first.")
 
 
@@ -122,10 +129,12 @@ def signed_release(path, *, app=False):
         raise ValueError(f"Missing expected Developer ID, team or secure timestamp: {path.name}")
     run("codesign", "--verify", "--strict", "--deep", str(path))
     if app:
-        for bundle in (path, path / "Contents/PlugIns/QLColorCodePreview.appex"):
+        for bundle in (path, path / "Contents/PlugIns/QLColorCodePreview.appex",
+                       path / "Contents/XPCServices/QLColorCodeHighlight.xpc",
+                       path / "Contents/PlugIns/QLColorCodePreview.appex/Contents/XPCServices/QLColorCodeHighlight.xpc"):
             details = run("codesign", "-dv", "--verbose=4", str(bundle), merged=True)
             if f"TeamIdentifier={TEAM}" not in details or "Authority=Developer ID Application:" not in details or "Timestamp=" not in details or "(runtime)" not in details:
-                raise ValueError("Both executables need the expected team, secure timestamp and hardened runtime.")
+                raise ValueError("All executables need the expected team, secure timestamp and hardened runtime.")
             entitlements = subprocess.check_output(["codesign", "-d", "--entitlements", "-", "--xml", str(bundle)], stderr=subprocess.DEVNULL)
             if plistlib.loads(entitlements).get("com.apple.security.get-task-allow"):
                 raise ValueError("A release must not allow debugger attachment.")
@@ -183,7 +192,7 @@ def build(args):
     revision = run("git", "rev-parse", "HEAD")
     dirty = bool(run("git", "status", "--porcelain", "--untracked-files=all"))
     if qualified:
-        require_ready(json.loads((ROOT / "docs/release-readiness.json").read_text()))
+        require_ready(json.loads((ROOT / "docs/release-readiness.json").read_text()), args.tag)
         expected_version = tag_version(args.tag)
         if dirty or run("git", "rev-parse", f"refs/tags/{args.tag}^{{commit}}") != revision:
             raise ValueError("Prepare requires a clean checkout at the exact existing release tag.")
@@ -287,7 +296,7 @@ def draft(args):
     directory = args.assets.resolve()
     manifest = json.loads((directory / "release.json").read_text())
     dmg = validate_manifest(manifest, directory)
-    require_ready(json.loads((ROOT / "docs/release-readiness.json").read_text()))
+    require_ready(json.loads((ROOT / "docs/release-readiness.json").read_text()), manifest["tag"])
     tag, revision = manifest["tag"], manifest["source_commit"]
     if run("git", "rev-parse", f"refs/tags/{tag}^{{commit}}") != revision or run("git", "rev-parse", "HEAD") != revision or run("git", "status", "--porcelain", "--untracked-files=all"):
         raise ValueError("Draft requires the clean source checkout used to prepare this tag.")
@@ -308,7 +317,7 @@ def draft(args):
     command = ["gh", "release", "create", tag, *assets, "--repo", REPOSITORY, "--verify-tag", "--draft",
                "--title", f"QLColorCode {tag[1:]}", "--notes-file", str(args.notes.resolve())]
     if "-" in tag:
-        command.append("--prerelease")
+        command.extend(["--prerelease", "--latest=false"])
     print(run(*command))
     with tempfile.TemporaryDirectory(prefix="qlcolorcode-download-") as temp:
         run("gh", "release", "download", tag, "--repo", REPOSITORY, "--dir", temp)

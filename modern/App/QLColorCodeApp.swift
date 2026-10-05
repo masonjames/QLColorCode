@@ -21,6 +21,7 @@ private struct ContentView: View {
     @State private var renderingError: String?
     @State private var choosingFile = false
     @State private var loading = false
+    @State private var previewTask: Task<Void, Never>?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -73,7 +74,7 @@ private struct ContentView: View {
                 Text(fileName ?? "Local syntax highlighting. No content downloads.")
                     .lineLimit(1).truncationMode(.middle)
                 Spacer()
-                Text("Development preview").foregroundStyle(.secondary)
+                Text("Beta preview").foregroundStyle(.secondary)
             }
             .font(.caption).padding(.horizontal, 20).padding(.vertical, 10)
         }
@@ -86,6 +87,7 @@ private struct ContentView: View {
         .alert("Unable to preview this file", isPresented: Binding(
             get: { error != nil }, set: { if !$0 { error = nil } }
         )) { Button("OK") { error = nil } } message: { Text(error ?? "") }
+        .onDisappear { previewTask?.cancel() }
     }
 
     private func preview(_ url: URL) {
@@ -93,16 +95,14 @@ private struct ContentView: View {
         renderingError = nil
         html = nil
         fileName = nil
-        Task {
+        previewTask?.cancel()
+        previewTask = Task {
             do {
-                let rendered = try await Task.detached(priority: .userInitiated) {
-                    let access = url.startAccessingSecurityScopedResource()
-                    defer { if access { url.stopAccessingSecurityScopedResource() } }
-                    let document = try SourceDocument.read(url)
-                    return PreviewRenderer(bundle: .main).render(document)
-                }.value
+                let rendered = try await PreviewRenderer.preview(url)
                 html = rendered
                 fileName = url.lastPathComponent
+            } catch is CancellationError {
+                // Closing the window cancels its pending preview.
             } catch {
                 self.error = error.localizedDescription
             }

@@ -81,8 +81,7 @@ installed versions and untested cases.
 The modern renderer currently uses a pinned [highlight.js](modern/Resources/PROVENANCE.md)
 bundle. Legacy Highlight themes, flags, plugins and thumbnails are not carried
 forward. Reads are capped at 256 KiB and 6,000 lines; highlighting has tighter
-limits and falls back to plain text. A hard grammar-execution deadline remains a
-release gate. See [architecture and limitations](docs/DEVELOPMENT.md#architecture-and-limits).
+limits and a one-second parser budget, then falls back to plain text. See [architecture and limitations](docs/DEVELOPMENT.md#architecture-and-limits).
 
 ## Help keep a useful little project alive
 

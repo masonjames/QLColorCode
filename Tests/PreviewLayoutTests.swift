@@ -24,8 +24,8 @@ private final class LayoutTests: NSObject, WKNavigationDelegate {
     private var index = 0
     private var checks = 0
 
-    init(library: String) {
-        renderer = PreviewRenderer(library: library)
+    override init() {
+        renderer = PreviewRenderer(highlighter: IsolatedHighlighter(serviceName: "org.masonjames.QLColorCode.Tests.Highlight").highlight)
         super.init()
         web.navigationDelegate = self
     }
@@ -126,7 +126,7 @@ struct PreviewLayoutTests {
     @MainActor static func main() throws {
         let app = NSApplication.shared
         app.setActivationPolicy(.prohibited)
-        let tests = LayoutTests(library: try String(contentsOfFile: "modern/Resources/highlight.min.js", encoding: .utf8))
+        let tests = LayoutTests()
         tests.next()
         app.run()
     }

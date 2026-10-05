@@ -1,10 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-mkdir -p build/tests
-xcrun swiftc -swift-version 6 -warnings-as-errors -module-cache-path build/tests/module-cache \
-  modern/Core/*.swift Tests/PreviewLayoutTests.swift -o build/tests/preview-layout-tests
-python3 - <<'PY'
+python3 scripts/build-test-host.py PreviewLayoutTests "${1:-$(uname -m)}"
+python3 - <<'PYTEST'
 import subprocess
-subprocess.run(["build/tests/preview-layout-tests"], check=True, timeout=30)
-PY
+subprocess.run(["build/tests/PreviewLayoutTests.app/Contents/MacOS/PreviewLayoutTests"], check=True, timeout=30)
+PYTEST

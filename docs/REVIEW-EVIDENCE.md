@@ -285,3 +285,105 @@ The qualified signing/notarization/draft-upload path has not run end to end. Its
 notarization, fresh-download Gatekeeper trial or broader runtime compatibility is
 claimed. The next release work is parser cancellation/deadline, platform and
 accessibility/install qualification, and an authenticated notarization trial.
+
+## First beta subprocess attempt (October 4, 2026)
+
+The initial attempt used a stoppable executable with inherited sandbox. It passed
+companion and CLI checks, but **failed the installed Finder trial**: Quick Look
+rejected direct child-process creation. This implementation is superseded by the
+XPC correction below and is not release qualification.
+
+Tool-disabled Anthropic review used **claude-opus-5-5** for the plan and explicit
+implementation packet. No account data, credentials or private files were supplied.
+
+| Review | Packet SHA256 | Coverage |
+| --- | --- | --- |
+| beta-plan | `4e4442db351606888c0f347d12f2f821f5c7b8997a5747a8870dde7ef323dd05` | Parser process boundary and separate beta/stable release policy |
+| beta-implementation | `52d4b40f4d6c98edb5374e0349d72e99d46f50fb6786f7c7490f0e4b6b0f5bdc` | Parser/client, cancellation, project specification, tests, signing verification and release policy |
+
+The review found no code blocker and approved a signed local trial. Publication
+remains conditional on a final committed-build rerun, actual installed Finder
+highlighting near the input limit, upgrade/rollback, notarization, and testing the
+draft's downloaded artifact before publishing. The generated project and unchanged
+reader were outside this packet; native builds and prior reviews cover them.
+
+Initial implementation checks passed: 72 core assertions / 14 fixtures, 12 parser
+boundary checks (including an auto-reaping host), orphan exit after parent death,
+and 484 WebKit assertions / 13 fixtures. Local Dagger passed 18 release-policy
+tests and vendor hashes. The signed universal Release bundle has hardened runtime,
+secure timestamps and exactly sandbox/inherit entitlements on its helper. The
+first 11 parser checks, core and orphan test also passed as x86_64 under Rosetta;
+that is not Intel hardware qualification. Final install and release evidence will
+be recorded separately. macOS 15/26, Intel hardware and VoiceOver remain unverified.
+
+## XPC correction and current qualification
+
+Actual Finder testing caught a platform restriction missed by the subprocess plan.
+Apple DTS describes this restriction in the
+[Swift Forums discussion](https://forums.swift.org/t/running-a-script-from-within-swift-app-qlextension/70226).
+The correction uses a native embedded XPC service, the same mechanism used by
+[SourceCodeSyntaxHighlight](https://github.com/sbarex/SourceCodeSyntaxHighlight).
+It has only the App Sandbox entitlement, no inherited user-file/network grants.
+The pipe/spawn implementation and its descriptor probes were removed.
+
+The corrected service initializes JavaScriptCore on its main thread. CLI hosts
+using real sandboxed, hardened XPC services pass the 72 core assertions and
+16 XPC boundary checks,
+including timeout, cancellation, exception, bounds, contention, alarm disarming
+and recovery. A separate test
+asserts the service is alive before killing its host, then verifies termination.
+The recovery test allows launchd's restart delay; individual previews still stop
+waiting after one second. Ad hoc test services use their own bundle identifiers.
+
+The final XPC implementation passed the same core, 16 parser, orphan-termination
+and 484 WebKit checks as both arm64 and x86_64 under Rosetta on macOS 27.0.1.
+Rosetta is not physical Intel qualification. The Developer ID-signed universal
+candidate passed both embedded service identifiers, pinned resources, macOS 15.0
+deployment targets, exact sandbox entitlements, hardened runtime, secure timestamp
+and expected-team checks. Local Dagger passed all 18 release-policy tests and
+vendor hashes; the full local-only DMG rehearsal passed before the final bounded
+lock and service-identifier assertion were added. The qualified release pipeline
+must rerun those checks against its final source tag.
+
+Three tool-disabled reviews used `claude-opus-5-5`; only public source and sanitized
+test outcomes were included:
+
+| Review | Packet SHA256 | Coverage |
+| --- | --- | --- |
+| XPC plan | `350b1c3732c58333757743738527d3333c6ecff140cfadd41acead6a65aa49bf` | Native service boundary, sandbox and runtime proof |
+| XPC implementation | `248972e04345c25e4ce1eee2870e676ba144fea0dbc8441e4731d2b774da9588` | Client, service, packaging, tests and release verification |
+| XPC final addendum | `3996c7dda74df9b46cfd7d77bff806f97fe30dbe4936176ab5800814cb5a95e4` | Bounded contention, alarm disarming, architecture test target and service identifier assertion |
+
+The final review found no code blocker in its four-file packet. Its requested
+current-code Rosetta rerun and real Developer ID signature checks subsequently
+passed. Finder, rollback and notarized-artifact checks remain separate gates.
+
+A signed disposable host and the installed companion returned/displayed actual
+colored Swift. Earlier Finder checks were inconclusive: blank/disappearing previews were observed,
+and concurrent Finder use contaminated a later diagnostic. They are superseded by
+the coordinated qualification below; no failure was counted as a pass.
+
+
+## Coordinated signed Finder and rollback qualification (October 4, 2026)
+
+The installed universal build 3 from source
+`7ba8f302640bed351680d3e01fecdedddd070258` matched all 23 candidate file hashes.
+Only the installed extension was registered. On macOS 27.0.1 / Apple Silicon,
+freshly verified Finder selections produced:
+
+- `Palette.swift`: actual syntax colors, Swift header and 23 logical lines.
+- A 32,430-byte Swift fixture: actual colors and 1,410 logical lines.
+- A 34,500-byte fixture: readable, explicitly labelled plain text and 1,500 lines.
+- Returning to Palette: normal syntax colors recovered.
+
+The parent inspected the screenshots independently. The saved original signed
+build 1 was restored byte-for-byte (19 files), re-registered and exercised in
+Finder; it also rendered Palette with actual syntax colors. The verified build 3
+was then restored. All 498 legacy-generator files remained unchanged. No global
+Quick Look reset, quarantine removal or security bypass was used.
+
+The coordinated trial did not test rapid-browsing stress, VoiceOver or physical
+Intel. Earlier WebKit checks cover wrapping and selection; this trial is specific
+to installed Finder highlighting, fallback/recovery and reversible installation.
+The beta source/runtime gates now pass. Stable platform/accessibility gates remain
+open, and notarization plus the downloaded draft artifact still need verification.

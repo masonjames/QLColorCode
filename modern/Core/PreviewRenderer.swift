@@ -1,19 +1,26 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 import Foundation
-import JavaScriptCore
 
 struct PreviewRenderer {
-    // No source evaluation, subprocesses, language auto-detection, or runtime downloads.
+    // No source evaluation, language auto-detection, or runtime downloads.
     // Larger inputs remain useful as plain text without expensive grammar processing.
     static let highlightByteLimit = 32 * 1024
-    let library: String?
+    let highlighter: (String, String, () -> Bool) -> String?
 
-    init(bundle: Bundle) {
-        library = bundle.url(forResource: "highlight.min", withExtension: "js")
-            .flatMap { try? String(contentsOf: $0, encoding: .utf8) }
+    init() { highlighter = IsolatedHighlighter().highlight }
+    init(highlighter: @escaping (String, String, () -> Bool) -> String?) { self.highlighter = highlighter }
+
+    static func preview(_ url: URL) async throws -> String {
+        let worker = Task.detached(priority: .userInitiated) {
+            try Task.checkCancellation()
+            let access = url.startAccessingSecurityScopedResource()
+            defer { if access { url.stopAccessingSecurityScopedResource() } }
+            let html = PreviewRenderer().render(try SourceDocument.read(url))
+            try Task.checkCancellation()
+            return html
+        }
+        return try await withTaskCancellationHandler { try await worker.value } onCancel: { worker.cancel() }
     }
-
-    init(library: String?) { self.library = library }
 
     static func escape(_ text: String) -> String {
         text.replacingOccurrences(of: "&", with: "&amp;", options: .literal)
@@ -112,20 +119,9 @@ struct PreviewRenderer {
     }
 
     private func highlight(_ document: SourceDocument) -> String? {
-        guard let language = document.language, let library,
+        guard let language = document.language,
               document.text.utf8.count <= Self.highlightByteLimit,
-              !document.text.split(separator: "\n").contains(where: { $0.utf8.count > 2000 }),
-              let context = JSContext() else { return nil }
-        context.evaluateScript(library)
-        guard context.exception == nil else { return nil }
-        let function = context.evaluateScript("""
-        (function(source, language) {
-          if (!hljs.getLanguage(language)) return null;
-          return hljs.highlight(source, {language: language, ignoreIllegals: true}).value;
-        })
-        """)
-        let result = function?.call(withArguments: [document.text, language])
-        guard context.exception == nil, let result, result.isString else { return nil }
-        return result.toString()
+              !document.text.split(separator: "\n").contains(where: { $0.utf8.count > 2000 }) else { return nil }
+        return highlighter(document.text, language, { Task.isCancelled })
     }
 }

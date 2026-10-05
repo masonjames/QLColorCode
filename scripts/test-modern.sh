@@ -1,13 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-mkdir -p build/tests
 python3 Tests/test_legacy_reader.py
 python3 scripts/verify-source.py
-xcrun swiftc -swift-version 6 -module-cache-path build/tests/module-cache \
-  modern/Core/*.swift Tests/ModernCoreTests.swift -o build/tests/modern-core-tests
-# Bound the entire test process as well as checking normal corpus timings.
-python3 - <<'PY'
+python3 scripts/build-test-host.py ModernCoreTests "${1:-$(uname -m)}"
+python3 scripts/build-test-host.py ParserTests "${1:-$(uname -m)}"
+python3 - <<'PYTEST'
 import subprocess
-subprocess.run(["build/tests/modern-core-tests"], check=True, timeout=30)
-PY
+subprocess.run(["build/tests/ModernCoreTests.app/Contents/MacOS/ModernCoreTests"], check=True, timeout=30)
+subprocess.run(["build/tests/ParserTests.app/Contents/MacOS/ParserTests"], check=True, timeout=45)
+subprocess.run(["python3", "Tests/test_parser_orphan.py"], check=True, timeout=10)
+PYTEST

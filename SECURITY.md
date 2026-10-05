@@ -22,5 +22,9 @@ modern release yet and no security guarantee for development builds. The old
 this repository does not patch an already installed 4.1.0 generator.
 
 The architecture uses bounded reads, escaped HTML and sandboxed app/extension
-bundles. Input limits do not establish a hard grammar-execution deadline; that
-remains an explicit release gate. See the [roadmap](docs/ROADMAP.md).
+bundles. Grammar execution runs in an embedded XPC service with its own App Sandbox,
+no network or user-file entitlements, a one-second caller budget and a two-second
+service alarm. Source text and language cross IPC as strings; source is never
+executed. Timeout, cancellation, invalid output and parser failure fall back to
+escaped plain text. macOS may briefly delay restarting a terminated service;
+previews stay readable during that interval. See the [roadmap](docs/ROADMAP.md).

@@ -79,11 +79,21 @@ class ReleaseTests(unittest.TestCase):
 
     def test_every_gate_needs_explicit_evidence(self):
         gates = {name: {"passed": True, "evidence": "Reviewed test receipt"} for name in release.GATES}
-        release.require_ready(gates)
+        release.require_ready({"stable": gates, "beta": {}}, "v5.0.0")
         for field in ({}, {**gates, "unknown_gate": {}}, {**gates, "parser_deadline": {"passed": True, "evidence": ""}},
                       {**gates, "parser_deadline": {"passed": False, "evidence": "Still open"}}):
             with self.subTest(gates=field), self.assertRaises(ValueError):
-                release.require_ready(field)
+                release.require_ready({"stable": field, "beta": {}}, "v5.0.0")
+
+    def test_beta_evidence_cannot_authorize_stable_release(self):
+        readiness = {"stable": {}, "beta": {name: {"passed": True, "evidence": "Observed local beta trial"}
+                                            for name in release.BETA_GATES}}
+        release.require_ready(readiness, "v5.0.0-beta.1")
+        with self.assertRaises(ValueError):
+            release.require_ready(readiness, "v5.0.0")
+        readiness["beta"]["local_runtime_and_install"]["passed"] = False
+        with self.assertRaises(ValueError):
+            release.require_ready(readiness, "v5.0.0-beta.1")
 
     def test_diagnostic_stderr_does_not_corrupt_parsed_stdout(self):
         result = release.run(sys.executable, "-c", 'import sys; print("{} "); print("diagnostic", file=sys.stderr)')

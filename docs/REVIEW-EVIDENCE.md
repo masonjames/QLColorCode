@@ -285,3 +285,33 @@ The qualified signing/notarization/draft-upload path has not run end to end. Its
 notarization, fresh-download Gatekeeper trial or broader runtime compatibility is
 claimed. The next release work is parser cancellation/deadline, platform and
 accessibility/install qualification, and an authenticated notarization trial.
+
+## First beta parser boundary (October 4, 2026)
+
+The parser now runs in a stoppable executable, embedded once in the preview
+extension and used by both surfaces. Parent timeout/cancellation kills and reaps
+the child; a separate alarm exits an orphan. The helper inherits its parent's
+sandbox. This is hang/crash containment, not a tighter privilege boundary.
+
+Tool-disabled Anthropic review used **claude-opus-5-5** for the plan and explicit
+implementation packet. No account data, credentials or private files were supplied.
+
+| Review | Packet SHA256 | Coverage |
+| --- | --- | --- |
+| beta-plan | `4e4442db351606888c0f347d12f2f821f5c7b8997a5747a8870dde7ef323dd05` | Parser process boundary and separate beta/stable release policy |
+| beta-implementation | `52d4b40f4d6c98edb5374e0349d72e99d46f50fb6786f7c7490f0e4b6b0f5bdc` | Parser/client, cancellation, project specification, tests, signing verification and release policy |
+
+The review found no code blocker and approved a signed local trial. Publication
+remains conditional on a final committed-build rerun, actual installed Finder
+highlighting near the input limit, upgrade/rollback, notarization, and testing the
+draft's downloaded artifact before publishing. The generated project and unchanged
+reader were outside this packet; native builds and prior reviews cover them.
+
+Initial implementation checks passed: 72 core assertions / 14 fixtures, 12 parser
+boundary checks (including an auto-reaping host), orphan exit after parent death,
+and 484 WebKit assertions / 13 fixtures. Local Dagger passed 18 release-policy
+tests and vendor hashes. The signed universal Release bundle has hardened runtime,
+secure timestamps and exactly sandbox/inherit entitlements on its helper. The
+first 11 parser checks, core and orphan test also passed as x86_64 under Rosetta;
+that is not Intel hardware qualification. Final install and release evidence will
+be recorded separately. macOS 15/26, Intel hardware and VoiceOver remain unverified.

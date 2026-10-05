@@ -9,8 +9,7 @@ struct ModernCoreTests {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("qlcolorcode-tests-\(UUID())")
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: root) }
-        let library = try String(contentsOfFile: "modern/Resources/highlight.min.js", encoding: .utf8)
-        let renderer = PreviewRenderer(library: library)
+        let renderer = PreviewRenderer(helper: URL(fileURLWithPath: "build/tests/Parser/Contents/Helpers/QLColorCodeHighlight"))
         var checks = 0
         func expect(_ condition: @autoclosure () throws -> Bool, _ label: String) throws {
             guard try condition() else { throw NSError(domain: "ModernCoreTests", code: 1, userInfo: [NSLocalizedDescriptionKey: label]) }
@@ -106,19 +105,15 @@ struct ModernCoreTests {
         try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: executable.path)
         _ = renderer.render(try SourceDocument.read(executable))
         try expect(!FileManager.default.fileExists(atPath: root.appendingPathComponent("executed").path), "Source never executes")
-        let plain = PreviewRenderer(library: nil).render(source)
+        let plain = PreviewRenderer(helper: nil).render(source)
         try expect(plain.contains("Plain text") && plain.contains("Hello 👋"), "Missing parser falls back")
         try expect(PreviewRenderer.escape("<\u{0338}script>&\u{0338}") == "&lt;\u{0338}script&gt;&amp;\u{0338}", "Literal escaping beside combining marks")
         let nestedMarkup = "<span class=\"hljs-title function_\">first<span class=\"hljs-string\">\nsecond</span></span>"
-        let nestedValue = String(data: try JSONSerialization.data(withJSONObject: [nestedMarkup]), encoding: .utf8)!
-        let nestedLibrary = "var hljs = {getLanguage: () => true, highlight: () => ({value: \(nestedValue)[0]})};"
         let nestedDocument = SourceDocument(name: "nested.js", text: "first\nsecond", language: "javascript", truncated: false)
-        let nestedHTML = PreviewRenderer(library: nestedLibrary).render(nestedDocument)
+        let nestedHTML = PreviewRenderer { _, _, _ in nestedMarkup }.render(nestedDocument)
         try expect(nestedHTML.contains("<span class=\"line\" data-line=\"1\"><span class=\"hljs-title function_\">first<span class=\"hljs-string\"></span></span>\n</span><span class=\"line\" data-line=\"2\"><span class=\"hljs-title function_\"><span class=\"hljs-string\">second</span></span></span>"), "Nested multiline and multi-class tokens remain balanced per line")
         for markup in ["</span>", "<span class=\"hljs-comment\">unfinished", "<img src=x>", "<span onclick=\"alert(1)\">bad</span>"] {
-            let encoded = String(data: try JSONSerialization.data(withJSONObject: [markup]), encoding: .utf8)!
-            let brokenLibrary = "var hljs = {getLanguage: () => true, highlight: () => ({value: \(encoded)[0]})};"
-            let preview = PreviewRenderer(library: brokenLibrary).render(source)
+            let preview = PreviewRenderer { _, _, _ in markup }.render(source)
             try expect(preview.contains("Plain text") && preview.contains("Hello 👋") && !preview.contains("<img "), "Malformed markup falls back to literal source")
         }
         for (name, label) in [("code.cpp", "C++"), ("code.mm", "Objective-C++"), ("app.cs", "C#"), ("settings.toml", "TOML"), ("settings.ini", "INI"), ("view.tsx", "TypeScript JSX")] {

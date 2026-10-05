@@ -2,7 +2,7 @@
   "stable": {
     "parser_deadline": {
       "passed": false,
-      "evidence": "A hard execution deadline and cancellation remain open; see docs/ROADMAP.md."
+      "evidence": "Parser boundary is implemented; final committed-build and signed Finder qualification remain pending."
     },
     "platform_qualification": {
       "passed": false,

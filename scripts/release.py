@@ -129,10 +129,11 @@ def signed_release(path, *, app=False):
         raise ValueError(f"Missing expected Developer ID, team or secure timestamp: {path.name}")
     run("codesign", "--verify", "--strict", "--deep", str(path))
     if app:
-        for bundle in (path, path / "Contents/PlugIns/QLColorCodePreview.appex"):
+        for bundle in (path, path / "Contents/PlugIns/QLColorCodePreview.appex",
+                       path / "Contents/PlugIns/QLColorCodePreview.appex/Contents/Helpers/QLColorCodeHighlight"):
             details = run("codesign", "-dv", "--verbose=4", str(bundle), merged=True)
             if f"TeamIdentifier={TEAM}" not in details or "Authority=Developer ID Application:" not in details or "Timestamp=" not in details or "(runtime)" not in details:
-                raise ValueError("Both executables need the expected team, secure timestamp and hardened runtime.")
+                raise ValueError("All executables need the expected team, secure timestamp and hardened runtime.")
             entitlements = subprocess.check_output(["codesign", "-d", "--entitlements", "-", "--xml", str(bundle)], stderr=subprocess.DEVNULL)
             if plistlib.loads(entitlements).get("com.apple.security.get-task-allow"):
                 raise ValueError("A release must not allow debugger attachment.")

@@ -6,7 +6,7 @@ settings:
   base:
     SWIFT_VERSION: "6.0"
     MACOSX_DEPLOYMENT_TARGET: "15.0"
-    CURRENT_PROJECT_VERSION: "1"
+    CURRENT_PROJECT_VERSION: "2"
     MARKETING_VERSION: "5.0.0"
     CODE_SIGN_STYLE: Manual
     CODE_SIGN_IDENTITY: "-"
@@ -162,6 +162,30 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.masonjames.QLColorCode.Preview
         APPLICATION_EXTENSION_API_ONLY: YES
+        SKIP_INSTALL: YES
+    dependencies:
+      - target: QLColorCodeHighlight
+        embed: true
+        link: false
+        codeSign: true
+        copy:
+          destination: wrapper
+          subpath: Contents/Helpers
+  QLColorCodeHighlight:
+    type: tool
+    platform: macOS
+    sources:
+      - Highlighter
+      - Core/HighlightRequest.swift
+    entitlements:
+      path: Highlighter/QLColorCodeHighlight.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.inherit: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.masonjames.QLColorCode.Highlight
+        CODE_SIGN_INJECT_BASE_ENTITLEMENTS: NO
         SKIP_INSTALL: YES
 schemes:
   QLColorCode:

@@ -68,7 +68,9 @@ Quick Look providers to make a development build run.
 | Location | Responsibility |
 | --- | --- |
 | `modern/Core/SourceDocument.swift` | Regular-file reads, encoding, newline normalization, size/line limits and language identification |
-| `modern/Core/PreviewRenderer.swift` | Pinned grammar execution and escaped, wrapped HTML with logical line numbers |
+| `modern/Core/PreviewRenderer.swift` | Escaped, wrapped HTML with logical line numbers and cancellable rendering |
+| `modern/Core/IsolatedHighlighter.swift` | Bounded pipes, parser deadline, cancellation and child cleanup |
+| `modern/Highlighter/` | Bundled JavaScriptCore parser with inherited sandbox and orphan-exit alarm |
 | `modern/Preview/PreviewProvider.swift` | Data-based Quick Look preview extension |
 | `modern/App/` | Companion UI, bundled icon and restricted local WebKit display |
 | `modern/Resources/` | Pinned highlight.js distribution, license and provenance |
@@ -77,7 +79,22 @@ Quick Look providers to make a development build run.
 The reader accepts UTF-8 or BOM-marked UTF-16, reads at most 256 KiB plus one
 lookahead byte, and displays at most 6,000 logical lines. Highlighting is limited
 to 32 KiB and source lines of at most 2,000 UTF-8 bytes. Larger previews remain
-escaped plain text and show a notice. These limits are not a hard parser deadline.
+escaped plain text and show a notice. The parser runs in a separate executable
+embedded once in the extension and shared by both preview surfaces. Only source
+and language JSON cross stdin; the helper loads its fixed bundled grammar file.
+It receives no environment or inherited descriptors beyond stdin/stdout/stderr.
+The parent kills/reaps it after one second, cancellation or more than 1 MiB output;
+the helper's own two-second alarm bounds parsing even if Finder kills the host.
+Only clean exit, valid UTF-8 and allowlisted span markup are accepted. Failures
+produce plain text and a reason-only system log; source and filenames are not logged.
+The helper inherits the invoking app/extension sandbox, rather than reducing its
+privileges further. Closing the companion cancels its task; Finder cancellation is
+forwarded when its async request is cancelled, with the parser deadline always active.
+
+`scripts/test-modern.sh` tests timeout, in-flight cancellation, partial-output crash,
+output bounds, descriptor/environment inheritance, recovery and orphan exit. Those
+CLI helpers are ad hoc signed and run outside App Sandbox; a signed installed
+app/Finder trial separately proves the shipped inherited-sandbox helper works.
 
 The companion needs outgoing-network permission for WebKit helper startup. Before
 loading local HTML it installs a block-all-resource rule, disables page JavaScript

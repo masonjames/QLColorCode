@@ -133,6 +133,8 @@ The GitHub release tag provides the corresponding GPL source archive. Never uplo
 ## Publish, then update the tap
 
 1. Review the draft, its source tag, attached evidence, free download and notes.
+   Download the draft DMG and verify installed app/Finder highlighting from that
+   exact notarized artifact before publishing; an earlier signed trial is insufficient.
    Publish it explicitly in GitHub or with `gh release edit TAG --draft=false`.
    Keep beta/rc releases marked as prereleases.
 2. Download the published DMG from its public version URL without authentication.

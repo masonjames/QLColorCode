@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00CF6A0B305BBD5A7DA85FAF /* HighlightRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B04EB564F9C925C35370A1 /* HighlightRequest.swift */; };
+		04851F660E7E7395D9CB8543 /* IsolatedHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B3708929130CBCB05C8DE /* IsolatedHighlighter.swift */; };
 		059BC7C648715AC1166542CB /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = A7C09410548B4F402C8440C5 /* COPYING */; };
 		0A9D214822A43FF85D0543AF /* PreviewWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB5C758B9E114F0C105DFC7 /* PreviewWebView.swift */; };
 		0F2E8B63B0F4B6CA5E8F87BD /* highlight-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D5456153B66F32150E6CB2FF /* highlight-LICENSE */; };
+		10363F701B488FFCE1EF4987 /* HighlightRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B04EB564F9C925C35370A1 /* HighlightRequest.swift */; };
 		1706976E41100C45924C3F3A /* PreviewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84854FA54FECC92E3206ED /* PreviewRenderer.swift */; };
 		23148ECE79D8BB755818364D /* SourceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E1BB528483F5DAD36C9AD1 /* SourceDocument.swift */; };
+		39B216B575D2F0E6625C317D /* QLColorCodeHighlight in Embed Dependencies */ = {isa = PBXBuildFile; fileRef = 730CE8ED98F8F3FD7830B35B /* QLColorCodeHighlight */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		50EB4FE6073ACB93EAE2535E /* QLColorCodePreview.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 574392D55CC7E78E8113DD5C /* QLColorCodePreview.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		552DA29B74CB90000C61AEE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2843D360651F9BE77D189197 /* Assets.xcassets */; };
 		5F2234534B9AA852C75FF195 /* PROVENANCE.md in Resources */ = {isa = PBXBuildFile; fileRef = D3CBABAB8671F2748460CFC4 /* PROVENANCE.md */; };
@@ -19,14 +23,24 @@
 		6392C406F4AC614D7B4616E9 /* highlight.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 19C167C5389B1E35A3ED239E /* highlight.min.js */; };
 		6A4FF8871CDE6AC7F3B06C81 /* SourceDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E1BB528483F5DAD36C9AD1 /* SourceDocument.swift */; };
 		8013D35BD5F83433B945BA8E /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = A7C09410548B4F402C8440C5 /* COPYING */; };
+		80F29C40F848EC8735BD4C3F /* HighlightRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B04EB564F9C925C35370A1 /* HighlightRequest.swift */; };
 		967F85CE7E9414993168587D /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28F116833E4AC8EF601DF28 /* PreviewProvider.swift */; };
+		AC64C1D834268EA3F0E705AF /* IsolatedHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4B3708929130CBCB05C8DE /* IsolatedHighlighter.swift */; };
 		B3D328C132C0CB559A22CB1B /* QLColorCodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F630C0BE559A7C24D96B14A /* QLColorCodeApp.swift */; };
 		B477E8FD63B752B9CD6E7A4E /* PROVENANCE.md in Resources */ = {isa = PBXBuildFile; fileRef = D3CBABAB8671F2748460CFC4 /* PROVENANCE.md */; };
 		BC0EA791CE75291979B3E218 /* highlight-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D5456153B66F32150E6CB2FF /* highlight-LICENSE */; };
+		F6405770C3615E32F7CDF660 /* HighlighterMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4CE8B16CD19C93B66768A1 /* HighlighterMain.swift */; };
 		FBEF9804ACF0D855894E14A0 /* highlight.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 19C167C5389B1E35A3ED239E /* highlight.min.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		ABC498005FD1ABCC7519A7FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 23D26C7456AED2EC79AC60F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91143D35983F25F3BF2E34FA;
+			remoteInfo = QLColorCodeHighlight;
+		};
 		D504B0A41A29F15AA097F64A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 23D26C7456AED2EC79AC60F3 /* Project object */;
@@ -37,6 +51,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		8FFAAA319F3CFE837E958312 /* Embed Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Helpers;
+			dstSubfolderSpec = 1;
+			files = (
+				39B216B575D2F0E6625C317D /* QLColorCodeHighlight in Embed Dependencies */,
+			);
+			name = "Embed Dependencies";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EBBA747E8BE7B3656691E0A3 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -51,11 +76,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		19B04EB564F9C925C35370A1 /* HighlightRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightRequest.swift; sourceTree = "<group>"; };
 		19C167C5389B1E35A3ED239E /* highlight.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = highlight.min.js; sourceTree = "<group>"; };
 		1D84854FA54FECC92E3206ED /* PreviewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewRenderer.swift; sourceTree = "<group>"; };
 		2843D360651F9BE77D189197 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		54A59FCA71BD946D38F86A5C /* QLColorCodeHighlight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QLColorCodeHighlight.entitlements; sourceTree = "<group>"; };
 		574392D55CC7E78E8113DD5C /* QLColorCodePreview.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QLColorCodePreview.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F630C0BE559A7C24D96B14A /* QLColorCodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLColorCodeApp.swift; sourceTree = "<group>"; };
+		730CE8ED98F8F3FD7830B35B /* QLColorCodeHighlight */ = {isa = PBXFileReference; includeInIndex = 0; path = QLColorCodeHighlight; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A4B3708929130CBCB05C8DE /* IsolatedHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsolatedHighlighter.swift; sourceTree = "<group>"; };
 		90737B0406FF0CD091E4E831 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		932F00E658F27E2949771DBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A7C09410548B4F402C8440C5 /* COPYING */ = {isa = PBXFileReference; path = COPYING; sourceTree = "<group>"; };
@@ -67,6 +96,7 @@
 		D870862DC603890A28796E21 /* QLColorCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QLColorCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAB5C758B9E114F0C105DFC7 /* PreviewWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewWebView.swift; sourceTree = "<group>"; };
 		F18C26F6A37130F336BEFA2E /* QLColorCode.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QLColorCode.entitlements; sourceTree = "<group>"; };
+		FC4CE8B16CD19C93B66768A1 /* HighlighterMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlighterMain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -74,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				D870862DC603890A28796E21 /* QLColorCode.app */,
+				730CE8ED98F8F3FD7830B35B /* QLColorCodeHighlight */,
 				574392D55CC7E78E8113DD5C /* QLColorCodePreview.appex */,
 			);
 			name = Products;
@@ -92,6 +123,8 @@
 		43AF6E0DC739C28CC30C4918 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				19B04EB564F9C925C35370A1 /* HighlightRequest.swift */,
+				7A4B3708929130CBCB05C8DE /* IsolatedHighlighter.swift */,
 				1D84854FA54FECC92E3206ED /* PreviewRenderer.swift */,
 				C3E1BB528483F5DAD36C9AD1 /* SourceDocument.swift */,
 			);
@@ -129,11 +162,21 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		C6115435A055A3ED7ACC444F /* Highlighter */ = {
+			isa = PBXGroup;
+			children = (
+				FC4CE8B16CD19C93B66768A1 /* HighlighterMain.swift */,
+				54A59FCA71BD946D38F86A5C /* QLColorCodeHighlight.entitlements */,
+			);
+			path = Highlighter;
+			sourceTree = "<group>";
+		};
 		CCCFD2B015257601CE2E137A = {
 			isa = PBXGroup;
 			children = (
 				BDBE3F18C8567FE2F5AAD675 /* App */,
 				43AF6E0DC739C28CC30C4918 /* Core */,
+				C6115435A055A3ED7ACC444F /* Highlighter */,
 				43ACDB7472F38914CEECFCE8 /* Preview */,
 				44ED6C3812215A462FB63418 /* QLColorCode */,
 				5DA54A581B3ECC8EC8DFCF40 /* Resources */,
@@ -150,10 +193,12 @@
 			buildPhases = (
 				BAC173BF335A2017BF8B6E98 /* Sources */,
 				01FCC85F833A8F93D4A0D19E /* Resources */,
+				8FFAAA319F3CFE837E958312 /* Embed Dependencies */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				057897B15E87F9FC2A87CB6F /* PBXTargetDependency */,
 			);
 			name = QLColorCodePreview;
 			packageProductDependencies = (
@@ -182,6 +227,23 @@
 			productReference = D870862DC603890A28796E21 /* QLColorCode.app */;
 			productType = "com.apple.product-type.application";
 		};
+		91143D35983F25F3BF2E34FA /* QLColorCodeHighlight */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA368A2DCE55C402A33A5F50 /* Build configuration list for PBXNativeTarget "QLColorCodeHighlight" */;
+			buildPhases = (
+				C352F9947D19A96C4B0B8965 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QLColorCodeHighlight;
+			packageProductDependencies = (
+			);
+			productName = QLColorCodeHighlight;
+			productReference = 730CE8ED98F8F3FD7830B35B /* QLColorCodeHighlight */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -195,6 +257,9 @@
 						ProvisioningStyle = Manual;
 					};
 					81178298F46E961AB6C00A58 = {
+						ProvisioningStyle = Manual;
+					};
+					91143D35983F25F3BF2E34FA = {
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -215,6 +280,7 @@
 			targets = (
 				81178298F46E961AB6C00A58 /* QLColorCode */,
 				0DB042243687BCC0F8F85FEC /* QLColorCodePreview */,
+				91143D35983F25F3BF2E34FA /* QLColorCodeHighlight */,
 			);
 		};
 /* End PBXProject section */
@@ -250,6 +316,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80F29C40F848EC8735BD4C3F /* HighlightRequest.swift in Sources */,
+				AC64C1D834268EA3F0E705AF /* IsolatedHighlighter.swift in Sources */,
 				1706976E41100C45924C3F3A /* PreviewRenderer.swift in Sources */,
 				0A9D214822A43FF85D0543AF /* PreviewWebView.swift in Sources */,
 				B3D328C132C0CB559A22CB1B /* QLColorCodeApp.swift in Sources */,
@@ -261,15 +329,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00CF6A0B305BBD5A7DA85FAF /* HighlightRequest.swift in Sources */,
+				04851F660E7E7395D9CB8543 /* IsolatedHighlighter.swift in Sources */,
 				967F85CE7E9414993168587D /* PreviewProvider.swift in Sources */,
 				6347293548530452548E8926 /* PreviewRenderer.swift in Sources */,
 				23148ECE79D8BB755818364D /* SourceDocument.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C352F9947D19A96C4B0B8965 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10363F701B488FFCE1EF4987 /* HighlightRequest.swift in Sources */,
+				F6405770C3615E32F7CDF660 /* HighlighterMain.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		057897B15E87F9FC2A87CB6F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91143D35983F25F3BF2E34FA /* QLColorCodeHighlight */;
+			targetProxy = ABC498005FD1ABCC7519A7FF /* PBXContainerItemProxy */;
+		};
 		DE8B55AC2C61146B790E2B0B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0DB042243687BCC0F8F85FEC /* QLColorCodePreview */;
@@ -332,7 +416,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -422,7 +506,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -469,6 +553,38 @@
 			};
 			name = Release;
 		};
+		9E3F4ABEE6DEC9B1166CFE45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Highlighter/QLColorCodeHighlight.entitlements;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.masonjames.QLColorCode.Highlight;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		C1142BB34CC81029ABD672A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Highlighter/QLColorCodeHighlight.entitlements;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.masonjames.QLColorCode.Highlight;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 		F29EB11A86614DA013BA8E30 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -512,6 +628,15 @@
 			buildConfigurations = (
 				2F3EBA9AA2E2972DE838DC58 /* Debug */,
 				72F3C56D51FC025F7E11A5C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AA368A2DCE55C402A33A5F50 /* Build configuration list for PBXNativeTarget "QLColorCodeHighlight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1142BB34CC81029ABD672A7 /* Debug */,
+				9E3F4ABEE6DEC9B1166CFE45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

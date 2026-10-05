@@ -22,5 +22,8 @@ modern release yet and no security guarantee for development builds. The old
 this repository does not patch an already installed 4.1.0 generator.
 
 The architecture uses bounded reads, escaped HTML and sandboxed app/extension
-bundles. Input limits do not establish a hard grammar-execution deadline; that
-remains an explicit release gate. See the [roadmap](docs/ROADMAP.md).
+bundles. Grammar execution runs in a killable child with a one-second parent
+budget and a two-second self-termination alarm if the host dies. The child inherits
+its parent's sandbox; this contains parser hangs and crashes, not privileges.
+Timeout, cancellation, invalid output and parser failure fall back to escaped plain
+text. Source text is passed as data, never executed. See the [roadmap](docs/ROADMAP.md).

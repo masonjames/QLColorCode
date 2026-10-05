@@ -387,3 +387,60 @@ Intel. Earlier WebKit checks cover wrapping and selection; this trial is specifi
 to installed Finder highlighting, fallback/recovery and reversible installation.
 The beta source/runtime gates now pass. Stable platform/accessibility gates remain
 open, and notarization plus the downloaded draft artifact still need verification.
+
+
+## Public beta distribution (October 4, 2026)
+
+[5.0.0-beta.1](https://github.com/masonjames/QLColorCode/releases/tag/v5.0.0-beta.1)
+is built from `117e205dfcb388d779a9b43c38c1342c97a8f923` (app build 3).
+The tagged pipeline reran local Dagger, all native core/parser/WebKit checks,
+and a fresh signed universal build. Apple accepted the app ZIP and DMG without
+issues. Both tickets were stapled; the mounted and installed app and DMG passed
+Gatekeeper as **Notarized Developer ID** with assessments enabled.
+
+The GitHub draft assets downloaded and matched. A browser download retained
+quarantine; its installed app matched all 24 artifact files. The companion ran
+under normal macOS App Translocation and showed actual syntax colors. Finder
+rendered a new copy of the Swift fixture with actual colors, avoiding an earlier
+preview's cache. The parent inspected both screenshots and verified the running
+app's executable hash. No quarantine or security setting was removed.
+
+After publication, a download without GitHub authentication matched the tested
+DMG SHA256:
+`51db8c79aabb31a7e7b4b252b66f8bb024dc145f6bdb5f07038b684feb41fe33`.
+The attached `release.json` and `SHA256SUMS` provide the source/tag, toolchain,
+notary submission identifiers and immutable artifact hashes.
+A fresh browser download from the public release also matched, retained
+quarantine, validated its stapled ticket and passed Gatekeeper.
+
+The [custom tap](https://github.com/masonjames/homebrew-tap) pins that same DMG.
+Homebrew `7.0.7-103-ga57af19` style, audit and fetch passed, followed by an actual cask installation
+to the maintainer's user Applications folder. All 24 installed files matched the
+tested artifact, Homebrew quarantine remained present, and signatures, stapling
+and Gatekeeper passed again. The earlier manual app was preserved. All 498 files
+of the legacy generator remained unchanged; its old cask was not removed.
+A fresh-URL Finder preview of the Homebrew-installed app showed actual Swift
+colors and 23 lines; the parent inspected its screenshot. A future-version
+Homebrew upgrade and clean-machine trial remain unverified.
+
+The tap cask has one style correction from the tagged generator output:
+`depends_on macos: :sequoia` replaces `">= :sequoia"`. This Homebrew version
+parses the symbol with the `>=` comparator, preserving the minimum requirement.
+The generator and its existing test now emit the accepted shorthand. The DMG,
+release tag and checksum are unchanged.
+
+This is a prerelease, not GitHub's latest stable release. macOS 15/26, physical
+Intel and VoiceOver qualification remain open. No Homebrew central-cask acceptance
+or predecessor endorsement is claimed.
+
+Both the app repository and custom tap had **zero GitHub Actions runs** after
+publication; local Dagger and native macOS performed the build and verification.
+
+The public-download documentation and cask correction received a tool-disabled
+Claude CLI review using **`claude-opus-5-5`**, packet SHA256
+`bffc4ee771ad6981691b6d01f519e5127d35807b1b6931434f7dbf6023a8d8b8`.
+It found no release blocker. Its pending Finder condition subsequently passed;
+the parent clarified Rosetta coverage, the first-tap upgrade limitation and the
+cask correction above. The 18 release-policy tests and local documentation links
+passed. Review covered the explicit packet, not independent access to runtime
+evidence or this follow-up receipt.

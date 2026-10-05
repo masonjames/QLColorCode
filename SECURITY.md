@@ -16,8 +16,9 @@ report. No response-time promise is made while this is a small volunteer project
 
 ## Supported scope
 
-The modern development branch is the focus of this fork. There is no stable
-modern release yet and no security guarantee for development builds. The old
+The latest modern beta and development branch are the focus of this fork. There
+is no stable modern release yet. Please report security issues in the published
+beta through the private form above. The old
 4.1.0 generator is not a supported binary from this fork; a legacy reader fix in
 this repository does not patch an already installed 4.1.0 generator.
 

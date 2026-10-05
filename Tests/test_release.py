@@ -69,7 +69,7 @@ class ReleaseTests(unittest.TestCase):
         text = release.cask("v5.0.0-beta.1", "a" * 64)
         self.assertIn('version "5.0.0-beta.1"', text)
         self.assertIn('sha256 "' + "a" * 64 + '"', text)
-        self.assertIn('depends_on macos: ">= :sequoia"', text)
+        self.assertIn('depends_on macos: :sequoia', text)
         self.assertIn('/releases/download/v#{version}/QLColorCode-#{version}.dmg', text)
         self.assertNotIn("postflight", text)
 

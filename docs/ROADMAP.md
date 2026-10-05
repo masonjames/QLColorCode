@@ -1,8 +1,9 @@
 # Road to a first modern release
 
 The immediate milestone is a reproducible development preview that people can
-understand, build and help qualify. A public beta comes after the runtime and
-release gates below. No release date is promised.
+understand, build and help qualify. A public beta requires the bounded parser, observed local runtime/install trial and
+notarized distribution gates in [the release policy](RELEASING.md). The complete
+platform and accessibility matrix below remains a requirement for a stable release. No release date is promised.
 
 ## Established locally
 
@@ -16,7 +17,7 @@ release gates below. No release date is promised.
 
 [Detailed evidence](REVIEW-EVIDENCE.md) records what each check actually covered.
 
-## Before a public beta
+## Qualification roadmap
 
 | Priority | Outcome | Evidence needed |
 | --- | --- | --- |

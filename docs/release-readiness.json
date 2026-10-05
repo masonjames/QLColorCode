@@ -1,14 +1,26 @@
 {
-  "parser_deadline": {
-    "passed": false,
-    "evidence": "A hard execution deadline and cancellation remain open; see docs/ROADMAP.md."
+  "stable": {
+    "parser_deadline": {
+      "passed": false,
+      "evidence": "A hard execution deadline and cancellation remain open; see docs/ROADMAP.md."
+    },
+    "platform_qualification": {
+      "passed": false,
+      "evidence": "Only local macOS 27.0.1 Apple Silicon runtime evidence exists. Sequoia, Tahoe and Intel need qualification."
+    },
+    "accessibility_and_install": {
+      "passed": false,
+      "evidence": "VoiceOver, release install, upgrade and rollback remain open; the earlier installed development trial is preserved."
+    }
   },
-  "platform_qualification": {
-    "passed": false,
-    "evidence": "Only local macOS 27.0.1 Apple Silicon runtime evidence exists. Sequoia, Tahoe and Intel need qualification."
-  },
-  "accessibility_and_install": {
-    "passed": false,
-    "evidence": "VoiceOver, release install, upgrade and rollback remain open; the earlier installed development trial is preserved."
+  "beta": {
+    "parser_deadline": {
+      "passed": false,
+      "evidence": "Killable parsing, cancellation, orphan exit and recovery tests remain open."
+    },
+    "local_runtime_and_install": {
+      "passed": false,
+      "evidence": "Signed sandboxed app and Finder highlighting, local install, upgrade and rollback remain open."
+    }
   }
 }

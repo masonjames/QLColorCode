@@ -33,7 +33,7 @@ labelled test release, not stable support or Homebrew successor acceptance.
 | Swift core tests, real WebKit tests, universal Release build | Native macOS host |
 | Signing, notarization, DMG creation, mounted-bundle and Gatekeeper checks | Native macOS host and Apple notary service |
 | Asset storage | GitHub Releases, uploaded explicitly using `gh` |
-| Cask distribution | Planned `masonjames/homebrew-tap`, pointing to the same DMG |
+| Cask distribution | `masonjames/homebrew-tap`, pointing to the same DMG |
 
 **No GitHub Actions workflow is required or installed.** Dagger's Linux engine
 cannot run Xcode or macOS signing tools. The container receives only an explicit public-source
@@ -92,8 +92,8 @@ python3 scripts/release.py prepare \
   --notary-profile QLColorCode
 ```
 
-These are illustrative arguments, not an existing release. This fork currently
-pins its expected signing team in the release script; downstream maintainers must
+The first beta uses this version. Choose a new tag/build for the next release;
+never replace published assets. This fork pins its expected signing team in the release script; downstream maintainers must
 review that value for their own distribution.
 
 The pipeline verifies the signing team, hardened runtime, secure timestamps and
@@ -144,14 +144,17 @@ The GitHub release tag provides the corresponding GPL source archive. Never uplo
    `masonjames/homebrew-tap`. Review it, run `brew style`, `brew audit --cask` and
    `brew fetch --cask` against the fully qualified cask. A fetch proves the URL/hash;
    it does not prove installation or upgrade behavior.
-4. On a qualified test Mac, verify installation, opening the app, enabling its
-   Quick Look extension, Finder preview, upgrade and rollback. Preserve other
-   providers. Publish the receipt with the exact release and environment.
+4. On a qualified test Mac, verify installation, opening the app, its enabled
+   Quick Look extension and Finder preview. Preserve other providers. For the
+   first tap version, record the initial install and the local app rollback trial;
+   a future-version Homebrew upgrade remains unverified. Once a prior tap version
+   exists, verify its upgrade and rollback too. Publish the receipt with the exact
+   release and environment.
 5. Only then add the actual DMG link and
    `brew install --cask masonjames/tap/masonjames-qlcolorcode` to the README.
 
-The tap name and command above are the intended route, **not live instructions**.
-No Homebrew core/cask acceptance or predecessor endorsement is implied.
+The [custom tap](https://github.com/masonjames/homebrew-tap) distributes the public
+beta. No Homebrew core/cask acceptance or predecessor endorsement is implied.
 
 ## Set up notarization once
 

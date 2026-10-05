@@ -4,7 +4,7 @@
 <h1 align="center">QLColorCode</h1>
 <p align="center"><strong>A closer look at your code.</strong><br>Source previews since 2007. Rebuilt for modern macOS.</p>
 <p align="center">
-  <a href="#try-the-development-preview">Get started</a> ·
+  <a href="#download">Get started</a> ·
   <a href="CONTRIBUTING.md">Contribute</a> ·
   <a href="docs/ROADMAP.md">Roadmap</a> ·
   <a href="https://github.com/masonjames/QLColorCode/issues/new/choose">Report a bug</a>
@@ -14,15 +14,16 @@ Select a source file in Finder, press **Space**, and read it in color. QLColorCo
 brings syntax highlighting, original line numbers and automatic wrapping to
 Quick Look, with a small companion app for trying previews and setting up the extension.
 
-> **Development preview — build from source.** There is no signed, notarized
-> download yet. This revival targets **macOS Sequoia 15 and newer**; current local
-> runtime evidence is from Golden Gate 27.0.1 on Apple Silicon. It is not an
-> official successor or a replacement distributed by Homebrew.
+> **Public beta — 5.0.0-beta.1.** Free, signed and notarized. Targets **macOS
+> Sequoia 15 and newer**; tested on Golden Gate 27.0.1 / Apple Silicon. Automated
+> tests also passed under Rosetta. Sequoia, Tahoe, physical Intel and VoiceOver
+> still need qualification.
+> This is an independent maintained fork, not the official Homebrew successor.
 
-![QLColorCode development companion showing the public Swift palette example with syntax highlighting and line numbers](docs/images/preview.jpg)
+![QLColorCode beta companion showing the public Swift palette example with syntax colors and line numbers](docs/images/preview.jpg)
 
-*An actual development companion preview of [Palette.swift](examples/Palette.swift),
-not a mockup. Finder uses the same renderer.*
+*An actual preview from the downloaded, notarized beta using the
+[Palette.swift](examples/Palette.swift) fixture. Finder uses the same renderer.*
 
 ## Small utility, thoughtful defaults
 
@@ -32,7 +33,27 @@ not a mockup. Finder uses the same renderer.*
 - **Keep previews local.** Bundled grammars, no content downloads or source execution.
 - **Know when a preview is partial.** Large files have bounded previews with a visible notice.
 
-## Try the development preview
+## Download
+
+**[Download QLColorCode 5.0.0-beta.1.dmg](https://github.com/masonjames/QLColorCode/releases/download/v5.0.0-beta.1/QLColorCode-5.0.0-beta.1.dmg)**
+— universal for Apple Silicon and Intel. [Release notes, checksums and build receipt](https://github.com/masonjames/QLColorCode/releases/tag/v5.0.0-beta.1).
+
+Open the DMG, drag QLColorCode to Applications, then open it once. Enable
+**QLColorCode Preview** in System Settings → General → Login Items & Extensions →
+Quick Look. Select a source file in Finder and press **Space**.
+
+Or install the same notarized DMG through our [Homebrew tap](https://github.com/masonjames/homebrew-tap):
+
+```sh
+brew install --cask masonjames/tap/masonjames-qlcolorcode
+```
+
+If you already installed this app manually, keep a backup and move that copy aside
+before using Homebrew. The cask does not remove the legacy generator or enable
+extensions automatically. The old `brew install --cask qlcolorcode` package does
+not install this fork. See [release and migration details](docs/RELEASING.md).
+
+## Build from source
 
 You'll need a Mac with **macOS 15+**, **full Xcode with Swift 6**, and its command-line
 tools selected. No package manager or XcodeGen is needed for an ordinary build.
@@ -57,21 +78,15 @@ and an enabled Quick Look extension. Follow the [local-trial guide](docs/LOCAL-T
 without disabling Gatekeeper or changing unrelated providers. In a working
 companion app, choose `examples/Palette.swift` to start with a safe sample.
 
-The old `brew install --cask qlcolorcode` package is
-[disabled](https://formulae.brew.sh/cask/qlcolorcode) and does not install this fork.
-The [release guide](docs/RELEASING.md) describes free DMG downloads and the
-planned `masonjames/tap` route. Both will use the same notarized artifact. No new
-Homebrew installation command is live yet.
-
 ## What works, and what needs help
 
 | Area | Current evidence |
 | --- | --- |
 | Renderer | Core and real WebKit checks cover Unicode, wrapping, selection, multiline tokens, large files and safe fallback |
-| Golden Gate 27.0.1 / Apple Silicon | Signed companion tested; earlier installed extension exercised in Finder |
+| Golden Gate 27.0.1 / Apple Silicon | Notarized downloaded app and Finder previews tested; local upgrade/rollback verified |
 | Sequoia 15 / Tahoe 26 / Intel | Build targets are present; runtime qualification is still needed |
 | TypeScript | Companion can render it; `.tsx` worked in the Finder trial, while `.ts` conflicts with a macOS video type |
-| Distribution | No notarized download, published tap or official successor designation |
+| Distribution | Notarized universal DMG and checksum-pinned custom tap; no official successor designation |
 | Release automation | Local Dagger checks and native macOS packaging; no GitHub Actions dependency |
 
 The [release roadmap](docs/ROADMAP.md) tracks the remaining work. The

@@ -10,7 +10,7 @@
     },
     "accessibility_and_install": {
       "passed": false,
-      "evidence": "VoiceOver, release install, upgrade and rollback remain open; the earlier installed development trial is preserved."
+      "evidence": "Local beta install, rollback and custom-tap installation are verified. VoiceOver, clean-machine installation and future-version Homebrew upgrade remain unverified; see docs/REVIEW-EVIDENCE.md."
     }
   },
   "beta": {
@@ -20,7 +20,7 @@
     },
     "local_runtime_and_install": {
       "passed": true,
-      "evidence": "Source 7ba8f302640bed351680d3e01fecdedddd070258: Developer ID universal build3 installed with matching file hashes. Coordinated Finder Palette and 32430-byte/1410-line Swift previews showed genuine colors; oversized input remained readable and normal highlighting recovered. Original signed build1 restored byte-for-byte and Finder colors verified, then tested build3 restored. Legacy generator unchanged. See docs/REVIEW-EVIDENCE.md. Final notarized draft artifact trial remains mandatory before publication."
+      "evidence": "Source 7ba8f302640bed351680d3e01fecdedddd070258: Developer ID universal build3 installed with matching file hashes. Coordinated Finder Palette and 32430-byte/1410-line Swift previews showed genuine colors; oversized input remained readable and normal highlighting recovered. Original signed build1 restored byte-for-byte and Finder colors verified, then tested build3 restored. Legacy generator unchanged. Final notarized draft artifact trial passed companion/Finder checks with quarantine intact before publication. The Homebrew-installed artifact subsequently passed a fresh Finder trial. Public beta source: 117e205dfcb388d779a9b43c38c1342c97a8f923. See docs/REVIEW-EVIDENCE.md."
     }
   }
 }

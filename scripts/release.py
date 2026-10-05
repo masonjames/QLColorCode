@@ -71,7 +71,7 @@ def cask(tag, digest):
   desc "Syntax-colored Quick Look previews for source code"
   homepage "https://github.com/{REPOSITORY}"
 
-  depends_on macos: ">= :sequoia"
+  depends_on macos: :sequoia
 
   app "QLColorCode.app"
 

@@ -33,15 +33,15 @@ developer or an endorsed source. The final decision belongs to Homebrew's mainta
 | Maintained source | Modern implementation, review records and local tests | Repeatable local Dagger receipts and a dependable review/release process |
 | Preserved lineage | Original history, credits and licenses retained | Continue crediting predecessors; no unilateral handover claim |
 | Supported runtime | Local Golden Gate / Apple Silicon evidence | Sequoia, Tahoe, Intel and Finder/lifecycle qualification |
-| Safe distribution | Local signed diagnostic builds only | Notarized, stapled release, stable URL, checksum and clean-download test |
-| User migration | Legacy generator preserved during the local trial | Versioned install/upgrade/rollback and personal-tap evidence |
+| Safe distribution | Notarized beta DMG, stable URL/checksum and quarantined-download trial | Repeat the release process for future versions |
+| User migration | Legacy generator preserved; local beta install/rollback verified | Keep collecting migration and future-version upgrade reports |
 | Successor status | No designation; nobody contacted | A public, voluntary statement from an appropriate prior maintainer/project |
 | Independent interest | Not established | Real user reports and community contributions over time |
 
 [The roadmap](ROADMAP.md) orders the technical work. Homebrew's
 [upstream guidance](https://docs.brew.sh/Working-with-Homebrew-as-an-Upstream-Project)
 favors stable release URLs, checksums and public, constructive packaging discussions.
-A third-party tap is the initial distribution route once a release is qualified.
+The [third-party tap](https://github.com/masonjames/homebrew-tap) is the initial distribution route.
 Do not file an official cask replacement before there is a reviewable artifact.
 
 ## Maintainer outreach draft — not sent
@@ -53,8 +53,8 @@ not assume a transfer. Send only with the maintainer's explicit approval:
 > Hi Nathaniel and Anthony — I'm working on a modern macOS revival of QLColorCode
 > at https://github.com/masonjames/QLColorCode. It preserves the project's history
 > and credits, and adds a Swift companion with a sandboxed Quick Look extension.
-> The repository documents the tested behavior and the work still needed before
-> a notarized release. I'd value your feedback on the direction and how best to
+> A notarized beta is available; the repository documents its tested behavior and
+> remaining compatibility work. I'd value your feedback on the direction and how best to
 > continue the project responsibly. If the implementation and maintenance plan
 > earn your confidence, would you be open to discussing public successor
 > designation? There is no assumption of a handover or request for credentials.

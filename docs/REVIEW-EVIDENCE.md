@@ -66,8 +66,9 @@ and Intel runtime qualification, encoding policy, UX polish and feature parity.
 - Xcode automatically registered the build's app/UTIs with Launch Services. That
   makes the extension discoverable and is a real machine-state side effect.
   The separately approved installed trial below records installation and activation.
-- Hosted CI, signed distribution, notarization and Gatekeeper acceptance have not
-  run. A manual-only CI template is provided in `docs/ci/verify-modern.yml`; no live workflow is configured. GitHub rejected the first push because the existing OAuth credential lacks workflow scope, so no credential permissions were expanded.
+- Hosted CI, signed distribution, notarization and Gatekeeper acceptance had not
+  run at this stage. No live workflow was configured. The earlier workflow candidate
+  was subsequently replaced by the local Dagger release pipeline recorded below.
 
 ## Visual / Finder evidence
 
@@ -168,12 +169,12 @@ generator replacement has occurred.
 
 ## October 4 polish pass
 
-The next changeset adds automatic wrapping, friendly language labels, and a
-provisional Prism Q app icon. Logical-line wrappers close and reopen Highlight.js
+The next changeset adds automatic wrapping, friendly language labels, and the
+Prism Q app icon, subsequently selected by Mason. Logical-line wrappers close and reopen Highlight.js
 token spans across newlines. This preserves multiline highlighting, indentation
 and literal selectable text while keeping each number beside its original line.
 There is no wrapping preference to configure. The identity concepts, exact GPT
-image prompts, packaging steps and provisional selection are under `docs/brand/`.
+image prompts, packaging steps and selection are under `docs/brand/`.
 
 Three additional public-source packets were reviewed through Claude CLI with
 tools, MCP servers, hooks and session persistence disabled. All three responses
@@ -231,3 +232,56 @@ installed Finder trial has not been replaced by this polish build. Finder reflow
 macOS 15/26, Intel execution, VoiceOver and downloaded Gatekeeper qualification
 remain separate gates. Hosted CI has not run; the WebKit step is added only to the
 existing manual workflow template.
+
+## Community presentation and local release pipeline
+
+October 4, 2026: Mason selected **Prism Q**. The README now uses the selected icon
+and an actual companion screenshot of the public `examples/Palette.swift` fixture.
+Build/contribution guides, structured bug/compatibility forms, a security policy,
+roadmap and successor preparation notes are included. GitHub private vulnerability
+reporting was enabled and read back as enabled. No predecessor or Homebrew
+maintainer was contacted, and no successor designation is claimed.
+
+The workflow candidate was removed at Mason's request. Local Dagger 0.21.10 runs
+portable checks in a digest-pinned official Python container; native macOS performs
+Swift/WebKit checks, universal Release builds and DMG packaging. GitHub reported
+**zero workflows and zero Actions runs**. Nothing depends on a hosted runner.
+
+The parent executed the final reviewed rehearsal on macOS 27.0.1 (26A434), arm64,
+Xcode 27.0 (27A266a):
+
+- Dagger: 17 release-boundary regression tests and vendored-resource hashes passed.
+- Native: legacy regression, 72 core assertions / 14 fixtures, and 484 WebKit
+  assertions / 13 fixtures passed.
+- Fresh universal Release app and extension passed resource, entitlement, icon,
+  strict signature and both Mach-O slices' macOS 15.0 deployment-target checks.
+- A 2.4 MB compressed DMG was created, verified and mounted read-only. The mounted
+  bundle, Applications shortcut, install note and license passed verification;
+  the image was detached without launching or installing it.
+- The [sanitized rehearsal receipt](releases/2026-10-04-rehearsal.json) records the
+  exact DMG and source-snapshot hashes, base commit, dirty-tree status and toolchain.
+  The filename is marked `LOCAL-ONLY`; its ad hoc signature is **not** notarization.
+- The installed app's 19 files and legacy generator's 498 files remained identical
+  to their earlier manifests. Only the installed preview provider remained registered.
+- Local documentation links, issue-form YAML, the Swift example, generated cask
+  Ruby syntax and `git diff --check` passed. No tap install/audit/fetch is claimed.
+
+Three additional explicit public-source packets received tool-disabled Opus review:
+
+| Packet | Actual model | Input SHA-256 |
+| --- | --- | --- |
+| Release plan | `claude-opus-5-5` | `0284f4ae61d1bee17c8430eceabcdaf72d7d7f001328a1532d9b35ad7e3653e8` |
+| Release implementation and community docs | `claude-opus-5-5` | `adf8e80a98e7020610d883ef76cf9410ef1cd6c5709072ef1d33a422c2b1d128` |
+| Release safeguard follow-up | `claude-opus-5-5` | `a104f9bd4d11bbcfdf055845301fb0dc221a381c17cdf74f09a208e91ff5b459` |
+
+The implementation review led to separate JSON stdout parsing, compiled deployment
+checks, a Python-optimization guard, explicit existing-release detection and
+Gatekeeper source/status checks. The follow-up found no blocker to publishing
+**development source and docs**, conditional on the final 17-test rehearsal; the
+parent subsequently confirmed that complete pass. The reviewer ran no commands.
+
+The qualified signing/notarization/draft-upload path has not run end to end. Its
+[readiness gates](release-readiness.json) remain false. No public DMG, live tap,
+notarization, fresh-download Gatekeeper trial or broader runtime compatibility is
+claimed. The next release work is parser cancellation/deadline, platform and
+accessibility/install qualification, and an authenticated notarization trial.

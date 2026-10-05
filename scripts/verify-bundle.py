@@ -5,6 +5,9 @@ import plistlib
 import subprocess
 import sys
 
+if sys.flags.optimize:
+    raise SystemExit("Bundle verification requires Python assertions; do not use -O or PYTHONOPTIMIZE.")
+
 app = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("build/modern/Build/Products/Debug/QLColorCode.app")
 extension = app / "Contents/PlugIns/QLColorCodePreview.appex"
 with (app / "Contents/Info.plist").open("rb") as stream:
@@ -25,7 +28,11 @@ for bundle in (app, extension):
     executable = bundle / "Contents/MacOS" / info["CFBundleExecutable"]
     architectures = subprocess.check_output(["lipo", "-archs", str(executable)], text=True).split()
     assert set(architectures) == {"arm64", "x86_64"}, architectures
-    signed = subprocess.run(["codesign", "-d", "--entitlements", ":-", str(bundle)], capture_output=True, check=True)
+    for architecture in architectures:
+        load_commands = subprocess.check_output(["xcrun", "vtool", "-show-build", "-arch", architecture, str(executable)], text=True)
+        minimum_versions = [line.split()[1] for line in load_commands.splitlines() if line.strip().startswith("minos ")]
+        assert minimum_versions == ["15.0"], (bundle, architecture, minimum_versions)
+    signed = subprocess.run(["codesign", "-d", "--entitlements", "-", "--xml", str(bundle)], capture_output=True, check=True)
     signature = subprocess.run(["codesign", "-dv", str(bundle)], capture_output=True, text=True, check=True)
     flags = [line for line in signature.stderr.splitlines() if line.startswith("CodeDirectory ") or line.startswith("Signature=")]
     print(f"{bundle.name}: {'; '.join(flags)}")

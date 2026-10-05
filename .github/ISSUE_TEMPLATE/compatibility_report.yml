@@ -1,0 +1,30 @@
+name: Compatibility report
+description: Contribute actual macOS, architecture or file-type test results.
+title: "[Compatibility] "
+body:
+  - type: input
+    id: platform
+    attributes:
+      label: macOS version/build and chip
+      description: Use the exact version and say Apple Silicon or Intel.
+    validations:
+      required: true
+  - type: input
+    id: revision
+    attributes:
+      label: Source commit, Xcode and signing setup
+      description: Do not include certificate serials, private paths or credentials.
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: What did you actually test?
+      description: Separate build/test results, companion rendering, and Finder invocation. Include file extensions, wrapping, selection, light/dark appearance and failures. An untested item is not a pass.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or minimal reproduction
+      description: Use public/synthetic source and app-only screenshots. Remove personal paths and unrelated desktop content.

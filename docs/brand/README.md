@@ -9,14 +9,14 @@ Two concepts were generated with the built-in GPT image tool, not the API/CLI.
 The tool did not expose a specific model version. Exact prompts are retained in
 [PROMPTS.md](PROMPTS.md). Both master PNGs are 1254 × 1254 with alpha.
 
-- [Prism Q](prism-q-v1.png): the provisional development-app identity. A dark tile
+- [Prism Q](prism-q-v1.png): the selected app identity. A dark tile
   with colored code strokes forming the Q. Its silhouette is distinct at small
   sizes; the interior brackets become an accent at 16 px.
 - [Source Sheet](source-sheet-v2.png): an alternative that recalls classic Mac
   document icons. It remains a concept: the generated light edge has stray alpha
   pixels even after one cleanup pass. It is not bundled in the app.
 
-The user's final identity choice is pending. No upstream endorsement, handover or
+Mason selected Prism Q on October 4, 2026. No upstream endorsement, handover or
 Homebrew affiliation is implied by either concept. These assets accompany the
 project under its GPL-3.0-or-later terms to the extent rights apply; no third-party
 logo or stock artwork was supplied to the image model.

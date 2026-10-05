@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a security vulnerability privately
+    url: https://github.com/masonjames/QLColorCode/security/advisories/new
+    about: Please keep exploit details and sensitive files out of public issues.
+  - name: Development and contribution guide
+    url: https://github.com/masonjames/QLColorCode/blob/master/CONTRIBUTING.md
+    about: Build from source, choose a small contribution, and record real test results.

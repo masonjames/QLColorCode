@@ -1,13 +1,14 @@
-# Manual verification workflow template
+# Local verification
 
-`verify-modern.yml` is intentionally a template, not an enabled GitHub workflow.
-The current GitHub CLI OAuth credential cannot create workflow files. The source
-can be published without changing its permissions.
+QLColorCode uses local Dagger checks and native macOS tooling. There is no GitHub
+Actions dependency or enabled workflow. The former workflow candidate has been
+removed in favor of the [local release pipeline](../RELEASING.md).
 
-To enable CI later with appropriate repository/workflow authority, move the YAML
-file to `.github/workflows/verify-modern.yml`, publish that source change, then
-manually dispatch it. It builds and verifies a development artifact; it does not
-sign with Developer ID, upload releases, notarize, install, or deploy anything.
+For an ordinary contribution, run the three commands in
+[DEVELOPMENT.md](../DEVELOPMENT.md#build-and-check). For packaging and release
+receipts, run `python3 scripts/release.py rehearse`. Dagger verifies portable
+release boundaries and vendored resources; the Mac runs Swift, WebKit and bundle
+checks. Logs identify which environment ran each stage.
 
-The same verification is available locally through the scripts in `scripts/`.
-No hosted CI result is currently claimed.
+Use observed receipts in review. Do not add a green CI badge or claim Sequoia/Intel
+runtime coverage from a Golden Gate/Apple Silicon run.

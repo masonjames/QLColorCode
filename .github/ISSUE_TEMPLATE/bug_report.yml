@@ -1,0 +1,39 @@
+name: Bug report
+description: Report a reproducible problem in the modern development preview.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: "For security concerns, use the private reporting link instead. Share only public or synthetic source, never credentials or personal files."
+  - type: input
+    id: version
+    attributes:
+      label: Source revision or app version
+      description: Include how you built or obtained it and whether it is the modern app or legacy generator.
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: macOS version, chip and Xcode version
+      placeholder: "macOS 27.0.1, Apple Silicon, Xcode 27"
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where does it happen?
+      options:
+        - Finder Quick Look
+        - Companion app
+        - Build or tests
+        - Other project behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps, expected result and actual result
+      description: Include the filename extension, signing/extension setup if relevant, and a minimal synthetic example. Remove personal paths from logs.
+    validations:
+      required: true

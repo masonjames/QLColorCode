@@ -1,101 +1,113 @@
-# QLColorCode
+<p align="center">
+  <img src="modern/App/Assets.xcassets/AppIcon.appiconset/icon-256.png" width="112" height="112" alt="Prism Q: colored code strokes forming a magnifying glass around code brackets">
+</p>
+<h1 align="center">QLColorCode</h1>
+<p align="center"><strong>A closer look at your code.</strong><br>Source previews since 2007. Rebuilt for modern macOS.</p>
+<p align="center">
+  <a href="#try-the-development-preview">Get started</a> ·
+  <a href="CONTRIBUTING.md">Contribute</a> ·
+  <a href="docs/ROADMAP.md">Roadmap</a> ·
+  <a href="https://github.com/masonjames/QLColorCode/issues/new/choose">Report a bug</a>
+</p>
 
-Source-code previews for Finder's Quick Look, revived for modern macOS.
+Select a source file in Finder, press **Space**, and read it in color. QLColorCode
+brings syntax highlighting, original line numbers and automatic wrapping to
+Quick Look, with a small companion app for trying previews and setting up the extension.
 
-This fork continues [Nathaniel Gray's original project](https://github.com/n8gray/QLColorCode)
-and [Anthony Gelibert's continuation](https://github.com/anthonygelibert/QLColorCode),
-including their Git history and contributor credits.
+> **Development preview — build from source.** There is no signed, notarized
+> download yet. This revival targets **macOS Sequoia 15 and newer**; current local
+> runtime evidence is from Golden Gate 27.0.1 on Apple Silicon. It is not an
+> official successor or a replacement distributed by Homebrew.
 
-**Status: development prototype, not a published replacement for 4.1.0.** The modern
-app targets macOS Sequoia 15 and newer. A signed development build has been
-installed and invoked successfully by Finder on Golden Gate 27.0.1. Older OS
-runtime compatibility and the full file-type/interaction matrix still need qualification.
-The existing Homebrew `qlcolorcode` cask installs the obsolete generator and was
-disabled on September 27, 2026. It does not install this fork.
+![QLColorCode development companion showing the public Swift palette example with syntax highlighting and line numbers](docs/images/preview.jpg)
 
-## Modern preview
+*An actual development companion preview of [Palette.swift](examples/Palette.swift),
+not a mockup. Finder uses the same renderer.*
 
-The new Swift app embeds a sandboxed Quick Look preview extension. Its renderer
-provides selectable source, logical line numbers, automatic wrapping, and
-light/dark colors. Highlighting runs offline through a pinned copy of
-[highlight.js](modern/Resources/PROVENANCE.md). It does not execute source files,
-invoke a shell, download grammars, or require a runtime Homebrew dependency.
+## Small utility, thoughtful defaults
 
-The app also offers **Choose a file…** to exercise the renderer independently of
-Finder. This is useful when diagnosing file-type registration conflicts.
-WebKit requires outgoing-network permission to start in the companion app, even
-for local HTML; previews block resource requests and external navigation. The
-Quick Look extension has no network permission. Neither renderer fetches content.
+- **Read the source.** Syntax colors, selectable text and original line numbers.
+- **Let long lines wrap.** The gutter follows logical lines as the window changes size.
+- **Match your Mac.** Automatic light and dark colors; no theme setup required.
+- **Keep previews local.** Bundled grammars, no content downloads or source execution.
+- **Know when a preview is partial.** Large files have bounded previews with a visible notice.
 
-This is a new engine: André Simon's Highlight options, plugins, and theme names
-from the old generator are not compatible. Existing preferences are not changed.
-There is no preferences migration or thumbnail extension in this prototype.
+## Try the development preview
 
-## Build and check
-
-Requires full Xcode with a Swift 6 compiler and XcodeGen. The checked-in modern
-Xcode project can also be opened directly in Xcode.
+You'll need a Mac with **macOS 15+**, **full Xcode with Swift 6**, and its command-line
+tools selected. No package manager or XcodeGen is needed for an ordinary build.
+The current toolchain verified by this fork is Xcode 27; older toolchains still
+need qualification.
 
 ```sh
+git clone https://github.com/masonjames/QLColorCode.git
+cd QLColorCode
 bash scripts/test-modern.sh
 bash scripts/test-preview-layout.sh
 bash scripts/build-modern.sh
 ```
 
-The development app is written to:
+The app is built at `build/modern/Build/Products/Debug/QLColorCode.app`. You can also
+open `modern/QLColorCodeModern.xcodeproj` in Xcode. See the
+[development guide](docs/DEVELOPMENT.md) for tool selection, signing and local trials.
 
-```text
-build/modern/Build/Products/Debug/QLColorCode.app
-```
+**A successful build is not an install.** The default build uses ad hoc signing;
+macOS may refuse to run its extension. Finder testing needs a suitably signed app
+and an enabled Quick Look extension. Follow the [local-trial guide](docs/LOCAL-TRIAL.md)
+without disabling Gatekeeper or changing unrelated providers. In a working
+companion app, choose `examples/Palette.swift` to start with a safe sample.
 
-The build produces Apple Silicon and Intel slices and uses ad hoc signing. Xcode
-automatically registers the build's app and file-type declarations with Launch
-Services. It does not copy the app into Applications, manually enable its extension,
-alter the old generator, or use a Developer ID certificate. A passing build is not a Gatekeeper or notarization
-result. The old Xcode project remains at the repository root for historical use;
-new development belongs in `modern/`.
+The old `brew install --cask qlcolorcode` package is
+[disabled](https://formulae.brew.sh/cask/qlcolorcode) and does not install this fork.
+The [release guide](docs/RELEASING.md) describes free DMG downloads and the
+planned `masonjames/tap` route. Both will use the same notarized artifact. No new
+Homebrew installation command is live yet.
 
-The WebKit layout test checks exact source selection, wrapping and gutter geometry
-at narrow and wide sizes in light/dark appearance. It requires a logged-in macOS
-session with WebKit available. It does not install or enable the extension.
-The current icon concepts and their prompts are in [the identity notes](docs/brand/README.md).
+## What works, and what needs help
 
-## Known limits
+| Area | Current evidence |
+| --- | --- |
+| Renderer | Core and real WebKit checks cover Unicode, wrapping, selection, multiline tokens, large files and safe fallback |
+| Golden Gate 27.0.1 / Apple Silicon | Signed companion tested; earlier installed extension exercised in Finder |
+| Sequoia 15 / Tahoe 26 / Intel | Build targets are present; runtime qualification is still needed |
+| TypeScript | Companion can render it; `.tsx` worked in the Finder trial, while `.ts` conflicts with a macOS video type |
+| Distribution | No notarized download, published tap or official successor designation |
+| Release automation | Local Dagger checks and native macOS packaging; no GitHub Actions dependency |
 
-- The reader accepts regular UTF-8 or BOM-marked UTF-16 files, reads at most 256 KiB
-  plus one lookahead byte, and displays at most 6,000 lines. A notice identifies
-  partial previews. Binary and unsupported encodings return an explicit error.
-- Highlighting is limited to 32 KiB and lines of at most 2,000 UTF-8 bytes. Larger
-  previews fall back to escaped plain text with a notice. These input limits do
-  **not** guarantee a parser execution deadline; a hard timeout is a release gate.
-- Only the bundled common grammars are available. Unknown languages display plain
-  text in the companion app. Finder additionally requires a supported concrete UTI.
-- On the development Mac, `.ts` resolves to `public.mpeg-2-transport-stream`.
-  TypeScript can be previewed in the companion app, but `.ts` Finder support is
-  unresolved. The extension deliberately does not claim the movie type.
-- Extensionless Makefiles rendered in the installed Finder trial on the development
-  Mac. Other extensionless files and shell-dotfile routing remain unqualified.
-- `.tsx`, Rust, Go, YAML, TOML, and other mappings must be tested with different
-  editors installed. Imported file-type declarations do not guarantee precedence.
-- Binary plist conversion, compiled-script decompilation, configurable fonts/themes,
-  and legacy feature parity are deferred. Intel compilation is not an Intel runtime test.
+The [release roadmap](docs/ROADMAP.md) tracks the remaining work. The
+[verification record](docs/REVIEW-EVIDENCE.md) separates builds, runtime tests,
+installed versions and untested cases.
 
-See the [repository review and roadmap](docs/REVIVAL-REVIEW.md) and
-[local trial procedure](docs/LOCAL-TRIAL.md) for evidence and remaining gates.
-The previous documentation is preserved in [LEGACY.md](docs/LEGACY.md).
+The modern renderer currently uses a pinned [highlight.js](modern/Resources/PROVENANCE.md)
+bundle. Legacy Highlight themes, flags, plugins and thumbnails are not carried
+forward. Reads are capped at 256 KiB and 6,000 lines; highlighting has tighter
+limits and falls back to plain text. A hard grammar-execution deadline remains a
+release gate. See [architecture and limitations](docs/DEVELOPMENT.md#architecture-and-limits).
 
-## Community and distribution
+## Help keep a useful little project alive
 
-We intend to produce a signed, notarized app, prove the Finder experience, and
-publish a versioned release before offering a personal Homebrew tap. Replacing
-Homebrew's existing `qlcolorcode` token depends on their successor/fork criteria
-and maintainer review. This fork does not claim an upstream handover or endorsement.
+A clear bug report, a small fixture, a macOS compatibility check, or a focused
+pull request all help. Start with [CONTRIBUTING.md](CONTRIBUTING.md). You don't need
+to tackle the whole revival to contribute something useful.
 
-## License and credits
+For a security concern, use the [private reporting instructions](SECURITY.md).
+For the path toward Homebrew, see the [successor readiness notes](docs/SUCCESSOR.md).
 
-The current upstream source includes GNU GPL v3 in [COPYING](COPYING); retain its
-copyright notices and the original authors' credit. The original project shipped
-GPL v2 and Anthony's branch changed its license file in 2016; history is preserved.
-New Swift contributions are GPL-3.0-or-later. The bundled highlight.js library is
-BSD-3-Clause, with its [notice](modern/Resources/highlight-LICENSE) included in both
-application bundles. Its source revision and checksums are recorded alongside it.
+## History since 2007, preserved
+
+This fork continues [Nathaniel Gray's original QLColorCode](https://github.com/n8gray/QLColorCode),
+[Derzzle's build work](https://github.com/derzzle/QLColorCode), and
+[Anthony Gelibert's continuation](https://github.com/anthonygelibert/QLColorCode).
+Their Git history and contributor credits remain intact. The modern Swift work
+is maintained here by [Mason James](https://github.com/masonjames).
+
+Read the [historical review](docs/REVIVAL-REVIEW.md) or the
+[preserved legacy documentation](docs/LEGACY.md). Prism Q is our new identity;
+it does not imply endorsement by previous maintainers, Apple or Homebrew.
+
+## License
+
+[GNU GPL v3](COPYING); new Swift contributions are GPL-3.0-or-later. The original
+project used GPL v2 before the upstream license-file change in 2016. Existing
+copyright notices are retained. The bundled highlight.js library is BSD-3-Clause,
+and its [license](modern/Resources/highlight-LICENSE) ships with both app bundles.

@@ -359,7 +359,31 @@ current-code Rosetta rerun and real Developer ID signature checks subsequently
 passed. Finder, rollback and notarized-artifact checks remain separate gates.
 
 A signed disposable host and the installed companion returned/displayed actual
-colored Swift. The installed Finder check is **still unresolved**: blank/disappearing
-previews were observed, and concurrent Finder use contaminated a later diagnostic.
-No installed Finder pass or public release is claimed until an undisturbed trial
-and final artifact checks are recorded.
+colored Swift. Earlier Finder checks were inconclusive: blank/disappearing previews were observed,
+and concurrent Finder use contaminated a later diagnostic. They are superseded by
+the coordinated qualification below; no failure was counted as a pass.
+
+
+## Coordinated signed Finder and rollback qualification (October 4, 2026)
+
+The installed universal build 3 from source
+`7ba8f302640bed351680d3e01fecdedddd070258` matched all 23 candidate file hashes.
+Only the installed extension was registered. On macOS 27.0.1 / Apple Silicon,
+freshly verified Finder selections produced:
+
+- `Palette.swift`: actual syntax colors, Swift header and 23 logical lines.
+- A 32,430-byte Swift fixture: actual colors and 1,410 logical lines.
+- A 34,500-byte fixture: readable, explicitly labelled plain text and 1,500 lines.
+- Returning to Palette: normal syntax colors recovered.
+
+The parent inspected the screenshots independently. The saved original signed
+build 1 was restored byte-for-byte (19 files), re-registered and exercised in
+Finder; it also rendered Palette with actual syntax colors. The verified build 3
+was then restored. All 498 legacy-generator files remained unchanged. No global
+Quick Look reset, quarantine removal or security bypass was used.
+
+The coordinated trial did not test rapid-browsing stress, VoiceOver or physical
+Intel. Earlier WebKit checks cover wrapping and selection; this trial is specific
+to installed Finder highlighting, fallback/recovery and reversible installation.
+The beta source/runtime gates now pass. Stable platform/accessibility gates remain
+open, and notarization plus the downloaded draft artifact still need verification.

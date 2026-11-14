@@ -29,6 +29,22 @@ For a macOS cask, the declared OS/architecture combinations must work, and the
 artifact must pass Gatekeeper without bypasses. Downloads must come from the
 developer or an endorsed source. The final decision belongs to Homebrew's maintainers.
 
+## Status refreshed November 13, 2026
+
+- The official `qlcolorcode` cask was disabled on September 27, 2026. Homebrew's
+  analytics still showed 2,116 installs over 365 days, 187 over 90 days and 53 over
+  the last 30 days, so people are still reaching for it after it stopped working.
+- This repository is past 30 days old (November 3), but GitHub still reports zero
+  stars, watchers and forks. Notability is the binding constraint, not age.
+- Anthony's [disablement issue](https://github.com/anthonygelibert/QLColorCode/issues/103)
+  is open with no comments. The outreach draft below has still not been sent.
+- [Syntax Highlight](https://github.com/sbarex/SourceCodeSyntaxHighlight) is an
+  actively maintained modern extension already in the main cask repository as
+  `syntax-highlight`. A replacement proposal should expect the question "why not
+  that?" and answer it honestly; the README's comparison section is the starting point.
+- Homebrew 7 requires trust for third-party taps. Installing with the fully
+  qualified name trusts this one cask automatically, and later upgrades see it.
+
 ## Evidence packet
 
 | Requirement | Current state | Next proof |

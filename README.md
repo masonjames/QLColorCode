@@ -48,6 +48,22 @@ Or install the same notarized DMG through our [Homebrew tap](https://github.com/
 brew install --cask masonjames/tap/masonjames-qlcolorcode
 ```
 
+### Coming from `brew install --cask qlcolorcode`?
+
+Homebrew disabled the original `qlcolorcode` cask on September 27, 2026. It
+installed a Quick Look *generator* (`QLColorCode.qlgenerator`), a plug-in type
+that macOS 15 Sequoia and newer no longer load, so it can't be repaired in place.
+This fork replaces it with a modern Quick Look *extension*:
+
+```sh
+brew install --cask masonjames/tap/masonjames-qlcolorcode
+```
+
+The old generator is left untouched. Once the new preview works, you can remove
+`QLColorCode.qlgenerator` from `~/Library/QuickLook` or `/Library/QuickLook`.
+Custom Highlight themes and `defaults write org.n8gray.QLColorCode` settings don't
+carry over; the modern preview follows your Mac's light or dark appearance.
+
 If you already installed this app manually, keep a backup and move that copy aside
 before using Homebrew. The cask does not remove the legacy generator or enable
 extensions automatically. The old `brew install --cask qlcolorcode` package does
@@ -98,7 +114,21 @@ bundle. Legacy Highlight themes, flags, plugins and thumbnails are not carried
 forward. Reads are capped at 256 KiB and 6,000 lines; highlighting has tighter
 limits and a one-second parser budget, then falls back to plain text. See [architecture and limitations](docs/DEVELOPMENT.md#architecture-and-limits).
 
+## How it compares
+
+[Syntax Highlight](https://github.com/sbarex/SourceCodeSyntaxHighlight) is the
+most complete Quick Look code previewer today, with themes, per-language settings
+and a very wide file-type list. Choose it if you want that control.
+
+QLColorCode aims to be the small, zero-setup option: no themes to pick, a sandboxed
+parser with a hard time budget, wrapped lines that keep their original numbers,
+and the familiar QLColorCode name for people migrating from the old cask.
+
 ## Help keep a useful little project alive
+
+If QLColorCode is useful to you, a ⭐ on this repository helps more than you'd
+think: Homebrew's main cask repository weighs public interest when deciding
+whether a replacement can return as a plain `brew install --cask`.
 
 A clear bug report, a small fixture, a macOS compatibility check, or a focused
 pull request all help. [Test the downloaded beta](docs/COMPATIBILITY.md) without
